@@ -17,8 +17,8 @@
 		7725F3682AC1957700FCE747 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F3672AC1957700FCE747 /* RegistrationViewController.swift */; };
 		7725F36A2AC1959300FCE747 /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F3692AC1959300FCE747 /* PhotoViewerViewController.swift */; };
 		7725F36C2AC195A300FCE747 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F36B2AC195A300FCE747 /* VideoPlayerViewController.swift */; };
-		7725F36E2AC195B800FCE747 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F36D2AC195B800FCE747 /* NewConversationViewController.swift */; };
 		7725F3702AC195CE00FCE747 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F36F2AC195CE00FCE747 /* ProfileViewController.swift */; };
+		7725F3722AC1968B00FCE747 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F3712AC1968B00FCE747 /* NewConversationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,8 +34,8 @@
 		7725F3672AC1957700FCE747 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		7725F3692AC1959300FCE747 /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
 		7725F36B2AC195A300FCE747 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
-		7725F36D2AC195B800FCE747 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		7725F36F2AC195CE00FCE747 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7725F3712AC1968B00FCE747 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +86,8 @@
 				7725F3672AC1957700FCE747 /* RegistrationViewController.swift */,
 				7725F3692AC1959300FCE747 /* PhotoViewerViewController.swift */,
 				7725F36B2AC195A300FCE747 /* VideoPlayerViewController.swift */,
-				7725F36D2AC195B800FCE747 /* NewConversationViewController.swift */,
 				7725F36F2AC195CE00FCE747 /* ProfileViewController.swift */,
+				7725F3712AC1968B00FCE747 /* NewConversationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -206,11 +206,11 @@
 			files = (
 				7725F3662AC1956500FCE747 /* LoginViewController.swift in Sources */,
 				7725F3502AC190B400FCE747 /* ConversationViewController.swift in Sources */,
-				7725F36E2AC195B800FCE747 /* NewConversationViewController.swift in Sources */,
 				7725F34C2AC190B400FCE747 /* AppDelegate.swift in Sources */,
 				7725F36C2AC195A300FCE747 /* VideoPlayerViewController.swift in Sources */,
 				7725F34E2AC190B400FCE747 /* SceneDelegate.swift in Sources */,
 				7725F3702AC195CE00FCE747 /* ProfileViewController.swift in Sources */,
+				7725F3722AC1968B00FCE747 /* NewConversationViewController.swift in Sources */,
 				7725F3682AC1957700FCE747 /* RegistrationViewController.swift in Sources */,
 				7725F36A2AC1959300FCE747 /* PhotoViewerViewController.swift in Sources */,
 			);

@@ -1,5 +1,5 @@
 //
-//  NewCOnversationViewController.swift
+//  NewConversationViewController.swift
 //  ChatBox
 //
 //  Created by Harsha R Mundaragi  on 25/09/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewCOnversationViewController: UIViewController {
+class NewConversationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
