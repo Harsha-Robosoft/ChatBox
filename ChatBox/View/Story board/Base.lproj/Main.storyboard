@@ -11,7 +11,7 @@
         <!--Conversation View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ConversationViewController" customModule="ChatBox" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConversationViewController" id="BYZ-38-t0r" customClass="ConversationViewController" customModule="ChatBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,10 +21,108 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="4"/>
+            <point key="canvasLocation" x="136.64122137404578" y="3.5211267605633805"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="dd4-Zp-76Q">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="Jjt-KF-2S7" customClass="LoginViewController" customModule="ChatBox" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oVE-8v-q3u">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aj3-T0-KE6">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAT-Ka-oRA">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gJo-XN-Lj0">
+                                                <rect key="frame" x="151" y="50" width="90" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="Z0b-C4-xoZ"/>
+                                                    <constraint firstAttribute="width" constant="90" id="r3N-ts-3aJ"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hp0-fD-dYq">
+                                                <rect key="frame" x="39.666666666666657" y="160" width="314" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="KsB-Nj-xsb"/>
+                                                    <constraint firstAttribute="width" constant="314" id="kCl-Zv-LZ3"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c5f-u7-4Fc">
+                                                <rect key="frame" x="39.666666666666657" y="242" width="314" height="52"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Hp0-fD-dYq" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" id="Blq-Me-6Me"/>
+                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="leading" secondItem="Hp0-fD-dYq" secondAttribute="leading" id="Hqa-In-jRK"/>
+                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="trailing" secondItem="Hp0-fD-dYq" secondAttribute="trailing" id="IX2-t2-BWz"/>
+                                            <constraint firstItem="gJo-XN-Lj0" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" constant="-0.5" id="LXJ-tr-Cdn"/>
+                                            <constraint firstItem="gJo-XN-Lj0" firstAttribute="top" secondItem="xAT-Ka-oRA" secondAttribute="top" constant="50" id="P2f-O9-V6m"/>
+                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="top" secondItem="Hp0-fD-dYq" secondAttribute="bottom" constant="30" id="W7L-pd-m5r"/>
+                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="height" secondItem="Hp0-fD-dYq" secondAttribute="height" id="Z3X-gf-uID"/>
+                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="width" secondItem="Hp0-fD-dYq" secondAttribute="width" id="ZJA-h5-FVP"/>
+                                            <constraint firstItem="Hp0-fD-dYq" firstAttribute="top" secondItem="gJo-XN-Lj0" secondAttribute="bottom" constant="30" id="uWZ-2X-uGu"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="xAT-Ka-oRA" firstAttribute="top" secondItem="j4H-Lj-1Np" secondAttribute="top" id="8dA-nL-M8h"/>
+                                    <constraint firstItem="xAT-Ka-oRA" firstAttribute="width" secondItem="PAD-jy-Lfg" secondAttribute="width" id="A7K-Xq-6RI"/>
+                                    <constraint firstItem="xAT-Ka-oRA" firstAttribute="trailing" secondItem="j4H-Lj-1Np" secondAttribute="trailing" constant="393" id="Q1Y-R0-fzr"/>
+                                    <constraint firstItem="xAT-Ka-oRA" firstAttribute="height" secondItem="PAD-jy-Lfg" secondAttribute="height" id="Yb6-xd-ZGT"/>
+                                    <constraint firstItem="xAT-Ka-oRA" firstAttribute="leading" secondItem="j4H-Lj-1Np" secondAttribute="leading" id="rRy-WS-yFr"/>
+                                    <constraint firstItem="xAT-Ka-oRA" firstAttribute="bottom" secondItem="j4H-Lj-1Np" secondAttribute="bottom" constant="852" id="vjX-8S-Rbr"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="j4H-Lj-1Np"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="PAD-jy-Lfg"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ML6-vk-vl6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aj3-T0-KE6" firstAttribute="top" secondItem="oVE-8v-q3u" secondAttribute="top" id="7pB-wq-dkC"/>
+                            <constraint firstItem="aj3-T0-KE6" firstAttribute="leading" secondItem="ML6-vk-vl6" secondAttribute="leading" id="E0s-5K-9ai"/>
+                            <constraint firstAttribute="bottom" secondItem="aj3-T0-KE6" secondAttribute="bottom" id="GpA-gI-IgT"/>
+                            <constraint firstItem="aj3-T0-KE6" firstAttribute="trailing" secondItem="ML6-vk-vl6" secondAttribute="trailing" id="fiC-NO-Kj1"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fv4-IT-w6R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1029.7709923664122" y="3.5211267605633805"/>
+        </scene>
+        <!--Registration View Controller-->
+        <scene sceneID="4MX-19-yh9">
+            <objects>
+                <viewController storyboardIdentifier="RegistrationViewController" id="C7d-wA-2fx" customClass="RegistrationViewController" customModule="ChatBox" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5nV-dX-c9k">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kFz-lf-VAY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="onO-H5-592" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1914" y="4"/>
         </scene>
     </scenes>
     <resources>
+        <image name="logo" width="360" height="361"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
