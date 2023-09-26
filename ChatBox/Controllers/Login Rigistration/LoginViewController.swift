@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailField: UITextField!
     
@@ -18,6 +19,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         title = "Log in"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(presentRegisterScreen))
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         emailField.delegate = self
         passwordField.delegate = self
     }
@@ -46,8 +51,16 @@ class LoginViewController: UIViewController {
             showAlert()
             return
         }
-        
-        #warning("Firebase login need to be implemented here")
+                
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] signInResult, error in
+            guard let result = signInResult, error == nil else{
+                print("Sign in error")
+                return
+            }
+            
+            let user = result.user
+            self?.navigationController?.dismiss(animated: true)
+        })
     }
     
     
@@ -67,8 +80,8 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: UITextFieldDelegate{
-    
+extension LoginViewController{
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField{
             passwordField.becomeFirstResponder()
@@ -77,5 +90,5 @@ extension LoginViewController: UITextFieldDelegate{
         }
         return true
     }
-    
+
 }

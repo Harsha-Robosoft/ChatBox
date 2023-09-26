@@ -115,9 +115,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emailField" destination="Hp0-fD-dYq" id="542-JU-RmA"/>
+                        <outlet property="emailField" destination="Hp0-fD-dYq" id="csC-oB-Ray"/>
                         <outlet property="loginButton" destination="wPt-Ci-CT0" id="mWi-CE-oVn"/>
-                        <outlet property="passwordField" destination="c5f-u7-4Fc" id="IaK-k5-Fbz"/>
+                        <outlet property="passwordField" destination="c5f-u7-4Fc" id="LCf-TV-c89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fv4-IT-w6R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
