@@ -42,7 +42,7 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc func editImageTapped(){
-        print("hi")
+        presentPhotoActionSheet()
     }
     
     @IBAction func registerButtonTapped(_ sender: Any) {
@@ -100,4 +100,50 @@ extension RegistrationViewController: UITextFieldDelegate{
         }
         return true
     }
+}
+
+
+extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func presentPhotoActionSheet(){
+        let ac = UIAlertController(title: "Profile picture.", message: "How would you like to select a picture?", preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Take picture", style: .default, handler: { [weak self] _ in
+            self?.presentCamera()
+        }))
+        ac.addAction(UIAlertAction(title: "Select picture", style: .default, handler: { [weak self] _ in
+            self?.presentPhotoPicker()
+        }))
+        present(ac, animated: true)
+    }
+    
+    func presentCamera(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func presentPhotoPicker(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else{
+            picker.dismiss(animated: true)
+            return
+        }
+        profilePic.image = selectedImage
+        profilePic.layer.cornerRadius = 70
+        picker.dismiss(animated: true)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
 }
