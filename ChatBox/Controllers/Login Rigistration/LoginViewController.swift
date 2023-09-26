@@ -44,7 +44,7 @@ class LoginViewController: UIViewController {
               let password = passwordField.text,
               !email.isEmpty, !password.isEmpty,
               password.count >= 6 else {
-            showAlert()
+            showAlert(aleartString: "Please enter all the information correctly to login")
             return
         }
         
@@ -58,22 +58,6 @@ class LoginViewController: UIViewController {
             self?.navigationController?.dismiss(animated: true)
         })
         
-    }
-    
-    
-    func showAlert(){
-        let ac = UIAlertController(
-            title: "Woops",
-            message: "Please enter all the information correctly to login",
-            preferredStyle: .alert
-        )
-        ac.addAction(
-            UIAlertAction(
-                title: "Wokay",
-                style: .cancel
-            )
-        )
-        present(ac, animated: true)
     }
 }
 

@@ -66,34 +66,29 @@ class RegistrationViewController: UIViewController {
               !email.isEmpty,
               !password.isEmpty,
               password.count >= 6 else {
-            showAlert()
+            showAlert(aleartString: "Please enter all the information correctly to register.")
             return
         }
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] signUpResult, error in
-            guard let result = signUpResult, error == nil else {
-                
+        DatabaseManager.shared.userExits(with: email, completion: { [weak self] exist in
+            guard !exist else {
+                self?.showAlert(aleartString: "Already a user exist under this email!!")
                 return
             }
-            let user = result.user
-            print(user)
-            self?.navigationController?.dismiss(animated: true)
+            
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {  signUpResult, error in
+                guard signUpResult != nil, error == nil else {
+                    
+                    return
+                }
+                DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName, lastName: lastName, email: email))
+                self?.navigationController?.dismiss(animated: true)
+            })
+            
         })
         
-    }
-    func showAlert(){
-        let ac = UIAlertController(
-            title: "Woops",
-            message: "Please enter all the information correctly to register.",
-            preferredStyle: .alert
-        )
-        ac.addAction(
-            UIAlertAction(
-                title: "Wokay",
-                style: .cancel
-            )
-        )
-        present(ac, animated: true)
+        
+        
     }
     
 }

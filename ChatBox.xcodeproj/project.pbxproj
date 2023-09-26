@@ -20,6 +20,8 @@
 		7725F3702AC195CE00FCE747 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F36F2AC195CE00FCE747 /* ProfileViewController.swift */; };
 		7725F3722AC1968B00FCE747 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F3712AC1968B00FCE747 /* NewConversationViewController.swift */; };
 		773C687E2AC2F05C008615BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 773C687D2AC2F05C008615BA /* GoogleService-Info.plist */; };
+		773C68802AC2F66F008615BA /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773C687F2AC2F66F008615BA /* DatabaseManager.swift */; };
+		773C68822AC2FDA1008615BA /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773C68812AC2FDA1008615BA /* Extentions.swift */; };
 		BFF5FDCBD545BEBF9A0586D2 /* Pods_ChatBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3344371BFB97D6AD20BBD5 /* Pods_ChatBox.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,8 @@
 		7725F36F2AC195CE00FCE747 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7725F3712AC1968B00FCE747 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		773C687D2AC2F05C008615BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		773C687F2AC2F66F008615BA /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		773C68812AC2FDA1008615BA /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		CE2D41866F2B330D5B9382A9 /* Pods-ChatBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBox.release.xcconfig"; path = "Target Support Files/Pods-ChatBox/Pods-ChatBox.release.xcconfig"; sourceTree = "<group>"; };
 		E80FF6BD705F952CE8A149B3 /* Pods-ChatBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBox.debug.xcconfig"; path = "Target Support Files/Pods-ChatBox/Pods-ChatBox.debug.xcconfig"; sourceTree = "<group>"; };
 		EE3344371BFB97D6AD20BBD5 /* Pods_ChatBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +142,8 @@
 			children = (
 				7725F34B2AC190B400FCE747 /* AppDelegate.swift */,
 				7725F34D2AC190B400FCE747 /* SceneDelegate.swift */,
+				773C687F2AC2F66F008615BA /* DatabaseManager.swift */,
+				773C68812AC2FDA1008615BA /* Extentions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -286,6 +292,8 @@
 			files = (
 				7725F3662AC1956500FCE747 /* LoginViewController.swift in Sources */,
 				7725F3502AC190B400FCE747 /* ConversationViewController.swift in Sources */,
+				773C68802AC2F66F008615BA /* DatabaseManager.swift in Sources */,
+				773C68822AC2FDA1008615BA /* Extentions.swift in Sources */,
 				7725F34C2AC190B400FCE747 /* AppDelegate.swift in Sources */,
 				7725F36C2AC195A300FCE747 /* VideoPlayerViewController.swift in Sources */,
 				7725F34E2AC190B400FCE747 /* SceneDelegate.swift in Sources */,
