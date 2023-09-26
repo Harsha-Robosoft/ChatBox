@@ -50,20 +50,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hp0-fD-dYq">
-                                                <rect key="frame" x="39.666666666666657" y="160" width="314" height="52"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="52" id="KsB-Nj-xsb"/>
-                                                    <constraint firstAttribute="width" constant="314" id="kCl-Zv-LZ3"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c5f-u7-4Fc">
-                                                <rect key="frame" x="39.666666666666657" y="242" width="314" height="52"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPt-Ci-CT0">
                                                 <rect key="frame" x="39.666666666666657" y="344" width="314" height="52"/>
                                                 <constraints>
@@ -76,20 +62,41 @@
                                                     <action selector="logIntapped:" destination="Jjt-KF-2S7" eventType="touchUpInside" id="M3Y-dE-PKO"/>
                                                 </connections>
                                             </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="akT-dV-MOi">
+                                                <rect key="frame" x="39.666666666666657" y="160" width="314" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="314" id="e6S-nl-GHg"/>
+                                                    <constraint firstAttribute="height" constant="52" id="kOr-uy-7yN"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Jjt-KF-2S7" id="ihs-hQ-DMn"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kpm-lT-Prd">
+                                                <rect key="frame" x="39.666666666666657" y="242" width="314" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="314" id="Di6-t0-jfS"/>
+                                                    <constraint firstAttribute="height" constant="52" id="mDA-F2-zkN"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Jjt-KF-2S7" id="Pn3-cE-7AC"/>
+                                                </connections>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="wPt-Ci-CT0" firstAttribute="top" secondItem="c5f-u7-4Fc" secondAttribute="bottom" constant="50" id="2Hr-NO-Z9Z"/>
-                                            <constraint firstItem="Hp0-fD-dYq" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" id="Blq-Me-6Me"/>
-                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="leading" secondItem="Hp0-fD-dYq" secondAttribute="leading" id="Hqa-In-jRK"/>
-                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="trailing" secondItem="Hp0-fD-dYq" secondAttribute="trailing" id="IX2-t2-BWz"/>
+                                            <constraint firstItem="wPt-Ci-CT0" firstAttribute="top" secondItem="kpm-lT-Prd" secondAttribute="bottom" constant="50" id="53y-38-uJ1"/>
+                                            <constraint firstItem="kpm-lT-Prd" firstAttribute="top" secondItem="akT-dV-MOi" secondAttribute="bottom" constant="30" id="7C3-81-9Gt"/>
+                                            <constraint firstItem="akT-dV-MOi" firstAttribute="top" secondItem="gJo-XN-Lj0" secondAttribute="bottom" constant="30" id="K8D-Yh-Uon"/>
                                             <constraint firstItem="gJo-XN-Lj0" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" constant="-0.5" id="LXJ-tr-Cdn"/>
                                             <constraint firstItem="gJo-XN-Lj0" firstAttribute="top" secondItem="xAT-Ka-oRA" secondAttribute="top" constant="50" id="P2f-O9-V6m"/>
                                             <constraint firstItem="wPt-Ci-CT0" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" id="Rmm-Jk-mMC"/>
-                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="top" secondItem="Hp0-fD-dYq" secondAttribute="bottom" constant="30" id="W7L-pd-m5r"/>
-                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="height" secondItem="Hp0-fD-dYq" secondAttribute="height" id="Z3X-gf-uID"/>
-                                            <constraint firstItem="c5f-u7-4Fc" firstAttribute="width" secondItem="Hp0-fD-dYq" secondAttribute="width" id="ZJA-h5-FVP"/>
-                                            <constraint firstItem="Hp0-fD-dYq" firstAttribute="top" secondItem="gJo-XN-Lj0" secondAttribute="bottom" constant="30" id="uWZ-2X-uGu"/>
+                                            <constraint firstItem="kpm-lT-Prd" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" id="aS8-4J-xca"/>
+                                            <constraint firstItem="akT-dV-MOi" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" id="wHa-wg-MIz"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -115,9 +122,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emailField" destination="Hp0-fD-dYq" id="csC-oB-Ray"/>
+                        <outlet property="emailField" destination="akT-dV-MOi" id="c41-cg-kEU"/>
                         <outlet property="loginButton" destination="wPt-Ci-CT0" id="mWi-CE-oVn"/>
-                        <outlet property="passwordField" destination="c5f-u7-4Fc" id="LCf-TV-c89"/>
+                        <outlet property="passwordField" destination="kpm-lT-Prd" id="Hky-Jr-rI4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fv4-IT-w6R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -235,10 +242,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="emailField" destination="emr-vT-Z3L" id="66U-zw-9Ra"/>
+                        <outlet property="emailField01" destination="emr-vT-Z3L" id="66U-zw-9Ra"/>
                         <outlet property="firstNameField" destination="nya-4X-uHz" id="5kW-Ro-uZo"/>
                         <outlet property="lastNameField" destination="1KA-Y2-iDv" id="l5k-z3-4kB"/>
-                        <outlet property="passwordField" destination="vJI-VW-0dO" id="YAX-2C-P2y"/>
+                        <outlet property="passwordField01" destination="vJI-VW-0dO" id="YAX-2C-P2y"/>
                         <outlet property="profilePic" destination="2nI-Rt-rrz" id="e1Y-j3-UFK"/>
                         <outlet property="registerButton" destination="EdS-So-K73" id="iht-FD-A21"/>
                     </connections>

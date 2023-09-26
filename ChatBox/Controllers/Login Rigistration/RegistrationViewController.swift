@@ -13,8 +13,8 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var emailField01: UITextField!
+    @IBOutlet weak var passwordField01: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     
     
@@ -25,8 +25,8 @@ class RegistrationViewController: UIViewController {
         view.backgroundColor = .white
         firstNameField.delegate = self
         lastNameField.delegate = self
-        emailField.delegate = self
-        passwordField.delegate = self
+        emailField01.delegate = self
+        passwordField01.delegate = self
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(editImageTapped))
         profilePic.image = UIImage(systemName: "person.fill.badge.plus")
@@ -54,11 +54,11 @@ class RegistrationViewController: UIViewController {
         
         firstNameField.resignFirstResponder()
         lastNameField.resignFirstResponder()
-        emailField.resignFirstResponder()
-        passwordField.resignFirstResponder()
+        emailField01.resignFirstResponder()
+        passwordField01.resignFirstResponder()
         
-        guard let email = emailField.text,
-              let password = passwordField.text,
+        guard let email = emailField01.text,
+              let password = passwordField01.text,
               let firstName = firstNameField.text,
               let lastName = lastNameField.text,
               !firstName.isEmpty,
@@ -103,10 +103,10 @@ extension RegistrationViewController: UITextFieldDelegate{
         if textField == firstNameField{
             lastNameField.becomeFirstResponder()
         }else if textField == lastNameField{
-            emailField.becomeFirstResponder()
-        }else if textField == emailField{
-            passwordField.becomeFirstResponder()
-        }else if textField == passwordField{
+            emailField01.becomeFirstResponder()
+        }else if textField == emailField01{
+            passwordField01.becomeFirstResponder()
+        }else if textField == passwordField01{
             registerButtonTapped()
         }
         return true

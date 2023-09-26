@@ -19,10 +19,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         title = "Log in"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(presentRegisterScreen))
-        
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         emailField.delegate = self
         passwordField.delegate = self
     }
