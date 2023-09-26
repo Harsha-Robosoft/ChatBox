@@ -19,6 +19,7 @@
 		7725F36C2AC195A300FCE747 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F36B2AC195A300FCE747 /* VideoPlayerViewController.swift */; };
 		7725F3702AC195CE00FCE747 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F36F2AC195CE00FCE747 /* ProfileViewController.swift */; };
 		7725F3722AC1968B00FCE747 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725F3712AC1968B00FCE747 /* NewConversationViewController.swift */; };
+		773C687E2AC2F05C008615BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 773C687D2AC2F05C008615BA /* GoogleService-Info.plist */; };
 		BFF5FDCBD545BEBF9A0586D2 /* Pods_ChatBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3344371BFB97D6AD20BBD5 /* Pods_ChatBox.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		7725F36B2AC195A300FCE747 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		7725F36F2AC195CE00FCE747 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7725F3712AC1968B00FCE747 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
+		773C687D2AC2F05C008615BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE2D41866F2B330D5B9382A9 /* Pods-ChatBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBox.release.xcconfig"; path = "Target Support Files/Pods-ChatBox/Pods-ChatBox.release.xcconfig"; sourceTree = "<group>"; };
 		E80FF6BD705F952CE8A149B3 /* Pods-ChatBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBox.debug.xcconfig"; path = "Target Support Files/Pods-ChatBox/Pods-ChatBox.debug.xcconfig"; sourceTree = "<group>"; };
 		EE3344371BFB97D6AD20BBD5 /* Pods_ChatBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +62,6 @@
 				E80FF6BD705F952CE8A149B3 /* Pods-ChatBox.debug.xcconfig */,
 				CE2D41866F2B330D5B9382A9 /* Pods-ChatBox.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -85,6 +86,7 @@
 		7725F34A2AC190B400FCE747 /* ChatBox */ = {
 			isa = PBXGroup;
 			children = (
+				773C687D2AC2F05C008615BA /* GoogleService-Info.plist */,
 				7725F3632AC1927800FCE747 /* Resources */,
 				7725F3622AC1926F00FCE747 /* View model */,
 				7725F3612AC1925000FCE747 /* Model */,
@@ -227,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7725F3582AC190B600FCE747 /* LaunchScreen.storyboard in Resources */,
+				773C687E2AC2F05C008615BA /* GoogleService-Info.plist in Resources */,
 				7725F3552AC190B600FCE747 /* Assets.xcassets in Resources */,
 				7725F3532AC190B400FCE747 /* Main.storyboard in Resources */,
 			);
