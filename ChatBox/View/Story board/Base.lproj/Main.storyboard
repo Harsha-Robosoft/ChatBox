@@ -168,7 +168,7 @@
                                                     <constraint firstAttribute="height" constant="52" id="PLe-85-C4R"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vJI-VW-0dO">
                                                 <rect key="frame" x="39.666666666666657" y="466" width="314" height="52"/>
@@ -199,7 +199,7 @@
                                                     <constraint firstAttribute="width" constant="314" id="Hdp-0Z-xXB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
