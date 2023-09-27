@@ -24,7 +24,7 @@ extension DatabaseManager{
     
     public func userExits(with email: String, completion: @escaping((Bool) -> Void)){
         
-        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        let safeEmail = email.replacingOccurrences(of: ".", with: "-")
         
         print(safeEmail)
         
