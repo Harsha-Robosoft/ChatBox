@@ -42,16 +42,20 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         ac.addAction(UIAlertAction(title: "Sign out", style: .destructive, handler: { [weak self] _ in
             
+            guard let strongSelf = self else{
+                return
+            }
+            
                 // logging out from Facebook
             
             FBSDKLoginKit.LoginManager().logOut()
             
             do{
                 try FirebaseAuth.Auth.auth().signOut()
-                let vc = self?.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
                 let nav = UINavigationController(rootViewController: vc)
                 nav.modalPresentationStyle = .fullScreen
-                self?.present(nav, animated: true)
+                strongSelf.present(nav, animated: true)
             }catch{
                 print("error while sign out")
             }

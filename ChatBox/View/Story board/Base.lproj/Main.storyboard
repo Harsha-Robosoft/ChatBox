@@ -290,10 +290,10 @@
             </objects>
             <point key="canvasLocation" x="2840.4580152671756" y="3.5211267605633805"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tabbar Controller-->
         <scene sceneID="kbV-MK-cFB">
             <objects>
-                <tabBarController id="hdG-QJ-ZhR" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabbarController" id="hdG-QJ-ZhR" customClass="TabbarController" customModule="ChatBox" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QAB-S8-mFK">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
