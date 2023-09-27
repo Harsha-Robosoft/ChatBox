@@ -71,18 +71,24 @@ class RegistrationViewController: UIViewController {
         }
         
         DatabaseManager.shared.userExits(with: email, completion: { [weak self] exist in
+            
+            guard let strongSelf = self else{
+                
+                return
+            }
+            
             guard !exist else {
-                self?.showAlert(aleartString: "Already a user exist under this email!!")
+                strongSelf.showAlert(aleartString: "Already a user exist under this email!!")
                 return
             }
             
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {  signUpResult, error in
                 guard signUpResult != nil, error == nil else {
-                    
+                    print("failed to save user detail in fire base")
                     return
                 }
                 DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName, lastName: lastName, email: email))
-                self?.navigationController?.dismiss(animated: true)
+                strongSelf.navigationController?.dismiss(animated: true)
             })
             
         })
