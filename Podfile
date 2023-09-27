@@ -11,9 +11,14 @@ target 'ChatBox' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+
 # Facebook login
 
   pod 'FBSDKLoginKit'
   pod 'FBSDKCoreKit'
+
+# Google sign in
+
+  pod 'GoogleSignIn'
     
 end

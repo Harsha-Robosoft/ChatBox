@@ -9,9 +9,10 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import FBSDKLoginKit
+import GoogleSignIn
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
 
 
@@ -27,8 +28,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 didFinishLaunchingWithOptions: launchOptions
             )
 
+            guard let clientId = FirebaseApp.app()?.options.clientID else{
+                fatalError("no client id found in firebase configuraration")
+            }
+            
+            let config = GIDConfiguration(clientID: clientId)
+            GIDSignIn.sharedInstance.configuration = config
+            
+            // Start the sign in flow!
+            GIDSignIn.sharedInstance.signIn(withPresenting: LoginViewController()) { [unowned self] result, error in
+              guard error == nil else {
+                return
+              }
+
+              guard let user = result?.user,
+                let idToken = user.idToken?.tokenString
+              else {
+                return 
+              }
+
+              let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                             accessToken: user.accessToken.tokenString)
+
+              // ...
+            }
+            
+//            GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+//            GIDSignIn.sharedInstance()?.delegate = self
             return true
         }
+    
+    
 
     // MARK: UISceneSession Lifecycle
 
@@ -55,7 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                 annotation: options[UIApplication.OpenURLOptionsKey.annotation]
             )
+            return GIDSignIn.sharedInstance.handle(url)
         }
 
+    
 }
 

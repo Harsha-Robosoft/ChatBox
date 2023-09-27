@@ -118,6 +118,18 @@
                                                     <action selector="logIntapped:" destination="Jjt-KF-2S7" eventType="touchUpInside" id="M3Y-dE-PKO"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6x-4B-OHB">
+                                                <rect key="frame" x="39.666666666666657" y="516" width="314" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="314" id="4PB-Fj-wsN"/>
+                                                    <constraint firstAttribute="height" constant="52" id="iiD-vM-iTk"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Google sign in"/>
+                                                <connections>
+                                                    <action selector="logIntapped:" destination="Jjt-KF-2S7" eventType="touchUpInside" id="rod-C7-fhV"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -128,9 +140,11 @@
                                             <constraint firstItem="gJo-XN-Lj0" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" constant="-0.5" id="LXJ-tr-Cdn"/>
                                             <constraint firstItem="gJo-XN-Lj0" firstAttribute="top" secondItem="xAT-Ka-oRA" secondAttribute="top" constant="50" id="P2f-O9-V6m"/>
                                             <constraint firstItem="wPt-Ci-CT0" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" id="Rmm-Jk-mMC"/>
+                                            <constraint firstItem="S6x-4B-OHB" firstAttribute="centerX" secondItem="xAT-Ka-oRA" secondAttribute="centerX" id="Ue5-nm-fq4"/>
                                             <constraint firstItem="c5f-u7-4Fc" firstAttribute="top" secondItem="Hp0-fD-dYq" secondAttribute="bottom" constant="30" id="W7L-pd-m5r"/>
                                             <constraint firstItem="c5f-u7-4Fc" firstAttribute="height" secondItem="Hp0-fD-dYq" secondAttribute="height" id="Z3X-gf-uID"/>
                                             <constraint firstItem="c5f-u7-4Fc" firstAttribute="width" secondItem="Hp0-fD-dYq" secondAttribute="width" id="ZJA-h5-FVP"/>
+                                            <constraint firstItem="S6x-4B-OHB" firstAttribute="top" secondItem="wPt-Ci-CT0" secondAttribute="bottom" constant="120" id="mYu-QF-KyR"/>
                                             <constraint firstItem="Hp0-fD-dYq" firstAttribute="top" secondItem="gJo-XN-Lj0" secondAttribute="bottom" constant="30" id="uWZ-2X-uGu"/>
                                         </constraints>
                                     </view>
@@ -158,6 +172,7 @@
                     </view>
                     <connections>
                         <outlet property="emailField" destination="Hp0-fD-dYq" id="542-JU-RmA"/>
+                        <outlet property="googleSigninButton" destination="S6x-4B-OHB" id="5wk-Ac-RFp"/>
                         <outlet property="loginButton" destination="wPt-Ci-CT0" id="mWi-CE-oVn"/>
                         <outlet property="passwordField" destination="c5f-u7-4Fc" id="IaK-k5-Fbz"/>
                         <outlet property="scrollView" destination="aj3-T0-KE6" id="1dn-YQ-czg"/>
