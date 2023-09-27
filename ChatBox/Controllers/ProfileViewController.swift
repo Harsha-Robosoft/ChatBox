@@ -6,24 +6,51 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
+    
+    let data = ["Sign out"]
 
+    @IBOutlet weak var tableView01: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView01.delegate = self
+        tableView01.dataSource = self
+    }
 
-        // Do any additional setup after loading the view.
+
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        cell?.textLabel?.text = data[indexPath.row]
+        return cell ?? UITableViewCell()
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        let ac = UIAlertController(title: "Are sure want to logout?", message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        ac.addAction(UIAlertAction(title: "Sign out", style: .destructive, handler: { [weak self] _ in
+            do{
+                try FirebaseAuth.Auth.auth().signOut()
+                let vc = self?.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                self?.present(nav, animated: true)
+            }catch{
+                print("error while sign out")
+            }
+        }))
+        present(ac, animated: true)
+    }
+    
 }
