@@ -9,8 +9,11 @@ import UIKit
 import FirebaseAuth
 import FBSDKCoreKit
 import FBSDKLoginKit
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
+    
+    let spinner = JGProgressHUD(style: .dark)
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var emailField: UITextField!
@@ -41,6 +44,7 @@ class LoginViewController: UIViewController {
 
     @IBAction func logIntapped(_ sender: Any) {
         
+        spinner.show(in: view)
         loginButtonTapped()
     }
     
@@ -54,6 +58,7 @@ class LoginViewController: UIViewController {
               !email.isEmpty, !password.isEmpty,
               password.count >= 6 else {
             showAlert(aleartString: "Please enter all the information correctly to login")
+            dismissSpinner()
             return
         }
         
@@ -62,15 +67,24 @@ class LoginViewController: UIViewController {
                 
                 return
             }
+            
             guard let result = signInResult, error == nil else {
                 print("failed to save user data in firebase ")
+                strongSelf.dismissSpinner()
                 return
             }
             let user = result.user
             print(user)
+            strongSelf.dismissSpinner()
             strongSelf.navigationController?.dismiss(animated: true)
         })
         
+    }
+    
+    func dismissSpinner(){
+        DispatchQueue.main.async {
+            self.spinner.dismiss(animated: true)
+        }
     }
 }
 

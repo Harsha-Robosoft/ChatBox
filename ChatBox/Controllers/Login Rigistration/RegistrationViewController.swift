@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-
+import JGProgressHUD
 class RegistrationViewController: UIViewController {
 
     @IBOutlet weak var profilePic: UIImageView!
@@ -17,7 +17,7 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     
-    
+    let spinner = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,7 @@ class RegistrationViewController: UIViewController {
     }
     
     @IBAction func registerButtonTapped(_ sender: Any) {
+        spinner.show(in: view)
         registerButtonTapped()
     }
     
@@ -67,6 +68,7 @@ class RegistrationViewController: UIViewController {
               !password.isEmpty,
               password.count >= 6 else {
             showAlert(aleartString: "Please enter all the information correctly to register.")
+            dismissSpinner()
             return
         }
         
@@ -79,22 +81,32 @@ class RegistrationViewController: UIViewController {
             
             guard !exist else {
                 strongSelf.showAlert(aleartString: "Already a user exist under this email!!")
+                strongSelf.dismissSpinner()
                 return
             }
             
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {  signUpResult, error in
                 guard signUpResult != nil, error == nil else {
                     print("failed to save user detail in fire base")
+                    strongSelf.dismissSpinner()
                     return
                 }
                 DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName, lastName: lastName, email: email))
+                strongSelf.dismissSpinner()
                 strongSelf.navigationController?.dismiss(animated: true)
+                
             })
             
         })
         
         
         
+    }
+    
+    func dismissSpinner(){
+        DispatchQueue.main.async {
+            self.spinner.dismiss(animated: true)
+        }
     }
     
 }
