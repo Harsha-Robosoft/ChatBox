@@ -91,7 +91,34 @@ class RegistrationViewController: UIViewController {
                     strongSelf.dismissSpinner()
                     return
                 }
-                DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName, lastName: lastName, email: email))
+                
+                let chatUser = ChapAppUser(firstName: firstName, lastName: lastName, email: email)
+                
+                DatabaseManager.shared.insertUser(with: chatUser){ success in
+                    if success{
+                        // upload image to firebase database
+                        guard let image = strongSelf.profilePic.image, let data = image.pngData() else{
+                            print("unable to get the image data")
+                            return
+                        }
+                        
+                        // uploading the profile picture to firebase storage
+                        let fileName = chatUser.profilePictureFileName
+                        StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
+                            switch result{
+                            case.success(let downloadUrl):
+                                UserDefaults.setValue(downloadUrl, forKey: "profile_picture_url")
+                                print(downloadUrl)
+                            case .failure(let error):
+                                print("storage manager: \(error)")
+                            }
+                        })
+                        
+                        
+                    }else{
+                        
+                    }
+                }
                 strongSelf.dismissSpinner()
                 strongSelf.navigationController?.dismiss(animated: true)
                 

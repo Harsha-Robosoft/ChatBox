@@ -146,7 +146,13 @@ extension LoginViewController: LoginButtonDelegate{
                     // if not exist we are saving the user data to the data base
                     DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName,
                                                                         lastName: lastName,
-                                                                        email: email))
+                                                                        email: email)){ success in
+                        if success{
+                            // upload image to firebase database
+                        }else{
+                            
+                        }
+                    }
                 }
             })
 
