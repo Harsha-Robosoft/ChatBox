@@ -15,5 +15,10 @@ target 'ChatBox' do
 
   pod 'FBSDKLoginKit'
   pod 'FBSDKCoreKit'
+
+  pod 'MessageKit'
+  pod 'JGProgressHUD'
+  pod 'RealmSwift'
+  pod 'SDWebImage'
     
 end

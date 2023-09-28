@@ -144,7 +144,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
             endingLineNumber = "48"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkName = "application(_:open:options:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
