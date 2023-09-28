@@ -42,7 +42,7 @@ class NewConversationViewController: UIViewController {
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(dismissViewTapped))
-        searchBar.becomeFirstResponder()
+        searchBar.becomeFirstResponder() 
         view.addSubview(tableView)
         view.addSubview(noUserLbl)
         noUserLbl.isHidden = true
