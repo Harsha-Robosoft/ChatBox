@@ -56,8 +56,31 @@ class ConversationViewController: UIViewController {
     
     @objc func createNewChatTapped(){
         let vc = NewConversationViewController()
+        vc.completion = { [weak self] result in
+            print(result)
+            self?.createNewConversation(result: result)
+        }
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
+    }
+    
+    private func createNewConversation(result: [String: String]){
+        
+        guard let name = result["name"],
+              let email = result["email"] else{
+            return
+        }
+//        let vc = ChatViewController(with: "1@gmail.com")
+//        vc.navigationItem.largeTitleDisplayMode = .never
+//        vc.title = "hi"
+//        vc.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(vc, animated: true)
+        let vc = ChatViewController(with: email)
+        vc.isNewConversation = true
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.hidesBottomBarWhenPushed = true
+        vc.title = name
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func checkForSigIn(){
@@ -95,8 +118,9 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatViewController()
+        let vc = ChatViewController(with: "1@gmail.com")
         vc.navigationItem.largeTitleDisplayMode = .never
+        vc.title = "hi"
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
         

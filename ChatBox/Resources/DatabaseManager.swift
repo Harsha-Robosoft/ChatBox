@@ -97,7 +97,7 @@ extension DatabaseManager{
                     // create the user array
                     let newCollection: [[String: String]] =  [
                         [
-                            "name": user.firstName + "" + user.lastName,
+                            "name": user.firstName + " " + user.lastName,
                             "email": user.safeEmail
                         ]
                     ]
