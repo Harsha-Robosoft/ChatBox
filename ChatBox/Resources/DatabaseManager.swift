@@ -82,7 +82,7 @@ extension DatabaseManager{
                     // append to user dictionary
                     
                     let newElement = [
-                        "name": user.firstName + "" + user.lastName,
+                        "name": user.firstName + " " + user.lastName,
                         "email": user.safeEmail
                     ]
                     userCollection.append(newElement)
@@ -112,6 +112,21 @@ extension DatabaseManager{
                 }
             })
         })
+    }
+    
+    public func fetchAllUser(completion: @escaping((Result<[[String: String]], Error>) -> Void)){
+        database.child("users").observeSingleEvent(of: .value, with: { snapShot in
+            guard let value = snapShot.value as? [[String: String]] else{
+                completion(.failure(DataBaseErrors.unableToFetchAllUser))
+                return
+            }
+            completion(.success(value))
+        })
+    }
+    
+    
+    enum DataBaseErrors: Error{
+        case unableToFetchAllUser
     }
     
 }
