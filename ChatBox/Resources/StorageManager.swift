@@ -17,7 +17,7 @@ final class StorageManager{
     /*
      
      filename sample
-     /image/'user safe email'_profile_picture.png
+     image/'user safe email'_profile_picture.png
      
      */
     
@@ -51,6 +51,21 @@ final class StorageManager{
     
     public enum StorageError: Error{
         case failedToUpload, failedToGetDownloadURL
+    }
+    
+    func downloadImageURLForProfile(for path: String, completion: @escaping((Result<URL, Error>) -> Void)){
+        
+        let reference = storage.child(path)
+        print(path)
+        
+        reference.downloadURL(completion: { url, error in
+            guard let url = url, error == nil else {
+                print(error)
+                completion(.failure(StorageError.failedToGetDownloadURL))
+                return
+            }
+            completion(.success(url))
+        })
     }
     
 }

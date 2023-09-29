@@ -16,6 +16,11 @@ final class DatabaseManager{
     
     private init(){ }
     
+    static func safeEmail(email: String) -> String{
+        let safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        return safeEmail
+    }
+    
 }
 
 //MARK: - User registration

@@ -74,7 +74,7 @@ class LoginViewController: UIViewController {
                 return
             }
             let user = result.user
-            print(user)
+            UserDefaults.standard.set(email, forKey: "email")
             strongSelf.dismissSpinner()
             strongSelf.navigationController?.dismiss(animated: true)
         })
@@ -138,6 +138,8 @@ extension LoginViewController: LoginButtonDelegate{
                 print("Failed to get email, first_name, last_name, data and image url name from FB")
                 return
             }
+            
+            UserDefaults.standard.set(email, forKey: "email")
             
             // here we are checking if user already exist with this email
             
