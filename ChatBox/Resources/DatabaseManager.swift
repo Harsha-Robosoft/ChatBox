@@ -58,7 +58,59 @@ extension DatabaseManager{
                 completion(false)
                 return
             }
-            completion(true)
+            
+            /*
+             basically what we are doing here is we are creating a 'users' array in firebase database which can hold all the logged in user detail for performing SEARCH OPERATION to start a new conversation so for this searching we are using this 'users' array
+             
+             reference structure of thus 'users' is as below
+             
+             users => [
+                [
+                    "name":
+                    "safe_email":
+                ],
+                [
+                    "name":
+                    "safe_email":
+                ]
+             ]
+             
+             
+             */
+            self.database.child("users").observeSingleEvent(of: .value, with: { snapShot in
+                if var userCollection = snapShot.value as? [[String: String]] {
+                    // append to user dictionary
+                    
+                    let newElement = [
+                        "name": user.firstName + "" + user.lastName,
+                        "email": user.safeEmail
+                    ]
+                    userCollection.append(newElement)
+                    self.database.child("users").setValue(userCollection, withCompletionBlock: { error, _ in
+                        guard error == nil else{
+                            completion(false)
+                            return
+                        }
+                        completion(true)
+                    })
+                }else{
+                    // create the user array
+                    let newCollection: [[String: String]] =  [
+                        [
+                            "name": user.firstName + "" + user.lastName,
+                            "email": user.safeEmail
+                        ]
+                    ]
+                    
+                    self.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                        guard error == nil else{
+                            completion(false)
+                            return
+                        }
+                        completion(true)
+                    })
+                }
+            })
         })
     }
     
