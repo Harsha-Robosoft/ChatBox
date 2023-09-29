@@ -85,6 +85,6 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
 
 extension NewConversationViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("hi")
+        
     }
 }
