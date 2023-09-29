@@ -41,7 +41,7 @@ class LoginViewController: UIViewController {
     }
     
     
-
+    
     @IBAction func logIntapped(_ sender: Any) {
         
         spinner.show(in: view)
@@ -105,69 +105,96 @@ extension LoginViewController: LoginButtonDelegate{
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
         // no code here
     }
-
+    
     func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
-
+        
         // here getting token from FB
         guard let token = result?.token?.tokenString else {
             print("user failerd to login with face book")
             return
         }
-
+        
         // first we need to get the user email and user name and need to check if user is already logged in with this email
-
+        
         let faceBookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                         parameters: ["fields" : "email, name"],
+                                                         parameters: ["fields" : "email, first_name, last_name, picture.type(large)"],
                                                          tokenString: token,
                                                          version: nil,
                                                          httpMethod: .get)
         // here we get the user data from FB
-
+        
         faceBookRequest.start(completion: { connection, results, error in
             guard let result = results as? [String: Any], error == nil else {
                 print("failed to make FB graph request")
                 return
             }
             // here we are taking the user name and email
-            guard let userName = result["name"] as? String, let email = result["email"] as? String else{
-                print("Failed to get email and user name from FB")
+            guard let firstName = result["first_name"] as? String,
+                  let lastName = result["last_name"] as? String,
+                  let email = result["email"] as? String,
+                  let picture = result["picture"] as? [String: Any],
+                  let data = picture["data"] as? [String: Any],
+                  let pictureUrl = data["url"] as? String else{
+                print("Failed to get email, first_name, last_name, data and image url name from FB")
                 return
             }
-
-            let nameComponents = userName.components(separatedBy: " ")
-            guard nameComponents.count == 2 else{ return }
-            let firstName = nameComponents[0]
-            let lastName = nameComponents[1]
-
+            
             // here we are checking if user already exist with this email
-
+            
             DatabaseManager.shared.userExits(with: email, completion: { exist in
                 if !exist{
+                    let chatUser = ChapAppUser(firstName: firstName,
+                                               lastName: lastName,
+                                               email: email)
                     // if not exist we are saving the user data to the data base
-                    DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName,
-                                                                        lastName: lastName,
-                                                                        email: email)){ success in
+                    DatabaseManager.shared.insertUser(with: chatUser){ success in
                         if success{
-                            // upload image to firebase database
+                            // uploading the profile picture to firebase storage
+                            
+                            guard let url = URL(string: pictureUrl) else{
+                                return
+                            }
+                            
+                            print("Downloading data from facebook image")
+                            
+                            URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+                                guard let data = data else{
+                                    print("Failed to get data from image")
+                                    return
+                                }
+                                print("get the data from image, uploading....")
+                                let fileName = chatUser.profilePictureFileName
+                                StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName, completion: { result in
+                                    switch result{
+                                    case.success(let downloadUrl):
+                                        UserDefaults.standard.setValue(downloadUrl, forKey: "profile_picture_url")
+                                        print(downloadUrl)
+                                    case .failure(let error):
+                                        print("storage manager: \(error)")
+                                    }
+                                })
+                                print("Uploaded FB image to firebase...")
+                                
+                            }).resume()
                         }else{
                             
                         }
                     }
                 }
             })
-
+            
             // here from Facebook credential trying to login to firebase
             let credential = FacebookAuthProvider.credential(withAccessToken: token)
             FirebaseAuth.Auth.auth().signIn(with: credential, completion: { [weak self] signInResult, error in
                 guard let strongSelf = self else{
-
+                    
                     return
                 }
                 guard signInResult != nil, error == nil else{
                     print("facebook credential login failed, MFA[Multi factor authentication] may be needed.")
                     return
                 }
-
+                
                 print("Successfully logged in using Face book")
                 strongSelf.navigationController?.dismiss(animated: true)
             })
