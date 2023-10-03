@@ -70,11 +70,6 @@ class ConversationViewController: UIViewController {
               let email = result["email"] else{
             return
         }
-//        let vc = ChatViewController(with: "1@gmail.com")
-//        vc.navigationItem.largeTitleDisplayMode = .never
-//        vc.title = "hi"
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(vc, animated: true)
         let vc = ChatViewController(with: email)
         vc.isNewConversation = true
         vc.navigationItem.largeTitleDisplayMode = .never

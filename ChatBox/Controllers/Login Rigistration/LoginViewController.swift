@@ -145,7 +145,7 @@ extension LoginViewController: LoginButtonDelegate{
             
             DatabaseManager.shared.userExits(with: email, completion: { exist in
                 if !exist{
-                    let chatUser = ChapAppUser(firstName: firstName,
+                    let chatUser = ChatAppUser(firstName: firstName,
                                                lastName: lastName,
                                                email: email)
                     // if not exist we are saving the user data to the data base

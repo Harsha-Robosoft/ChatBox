@@ -40,12 +40,12 @@ extension DatabaseManager{
             }
             completion(true)
         })
-  
+        
     }
     
     
     /// new user is added to databse
-    public func insertUser(with user: ChapAppUser, completion: @escaping((Bool) -> Void)){
+    public func insertUser(with user: ChatAppUser, completion: @escaping((Bool) -> Void)){
         
         print(user.safeEmail)
         
@@ -65,14 +65,14 @@ extension DatabaseManager{
              reference structure of thus 'users' is as below
              
              users => [
-                [
-                    "name":
-                    "safe_email":
-                ],
-                [
-                    "name":
-                    "safe_email":
-                ]
+             [
+             "name":
+             "safe_email":
+             ],
+             [
+             "name":
+             "safe_email":
+             ]
              ]
              
              
@@ -132,11 +132,71 @@ extension DatabaseManager{
 }
 
 
-struct ChapAppUser{
+//MARK: - Sending messages / Conversation
+
+extension DatabaseManager{
+    
+    /*
+     
+     "some id" {
+     "messages": [
+     {
+     "id": string
+     "type": text, video, image
+     "content": string
+     "date": date()
+     "sender_email": string
+     "isRed": true/false
+     }
+     ]
+     }
+     
+     
+     
+     
+     conversation => [
+     [
+     "conversation_id": "some id"
+     "other_user_email": "email"
+     "latest_message" => [
+     "date": "date"
+     "latest_message": "message"
+     "isRed": true/false
+     ]
+     ]
+     ]
+     */
+    
+    
+    
+    /// create a new conversation with target user email and first message
+    public func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping ((Bool) -> Void)){
+        
+    }
+    
+    /// fetches and returns all the conversation for the user with passed in email
+    public func getAllTheConversations(for email: String, completion: @escaping ((Result<String, Error>) -> Void)){
+        
+    }
+    
+    /// Gets all the messages for given conversation
+    public func getAllTheMessagesForConversations(with email: String, completion: @escaping ((Result<String, Error>) -> Void)){
+        
+    }
+    
+    /// Sends a message with target conversation and message
+    public func sendMessage(to conversation: String, message: Message, completion: @escaping ((Bool) -> Void)){
+        
+    }
+    
+}
+
+
+struct ChatAppUser{
     let firstName: String
     let lastName: String
     let email: String
-//    let imageUrl: String
+    //    let imageUrl: String
     
     var safeEmail: String{
         let safeEmail = email.replacingOccurrences(of: ".", with: "-")
