@@ -10,15 +10,41 @@ import MessageKit
 import InputBarAccessoryView
 
 struct Message: MessageType{
-    var sender: MessageKit.SenderType
-    var messageId: String
-    var sentDate: Date
-    var kind: MessageKit.MessageKind
+    public var sender: SenderType
+    public var messageId: String
+    public var sentDate: Date
+    public var kind: MessageKind
+}
+extension MessageKind{
+    var messageKindString: String{
+        switch self{
+        case .text(_):
+            return "test"
+        case .attributedText(_):
+            return "attributed_test"
+        case .photo(_):
+            return "photo"
+        case .video(_):
+            return "video"
+        case .location(_):
+            return "location"
+        case .emoji(_):
+            return "emoji"
+        case .audio(_):
+            return "audio"
+        case .contact(_):
+            return "contact"
+        case .linkPreview(_):
+            return "link_preview"
+        case .custom(_):
+            return "custom"
+        }
+    }
 }
 struct Sender: SenderType{
-    var photoURL: String
-    var senderId: String
-    var displayName: String
+    public var photoURL: String
+    public var senderId: String
+    public var displayName: String
 }
 
 class ChatViewController: MessagesViewController {
@@ -89,7 +115,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
                                   messageId: messageId,
                                   sentDate: Date(),
                                   kind: .text(text))
-            DatabaseManager.shared.createNewConversation(with: otherUserEmail, firstMessage: message, completion: { [weak self] isSuccess in
+            DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "user", firstMessage: message, completion: { [weak self] isSuccess in
                 
                 if isSuccess{
                     print("sent message")
@@ -110,9 +136,12 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
             
             return nil
         }
+        
+        let safeCurrentUserEmail = DatabaseManager.safeEmail(email: currentUserEmail)
+        
         let dateString = ChatViewController.dateFormatter.string(from: Date())
         
-        let newIdentifier = "\(otherUserEmail)_\(currentUserEmail)_\(dateString)"
+        let newIdentifier = "\(otherUserEmail)_\(safeCurrentUserEmail)_\(dateString)"
         print("Created messageId: \(newIdentifier)")
         return newIdentifier
     }
