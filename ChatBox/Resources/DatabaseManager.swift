@@ -212,7 +212,7 @@ extension DatabaseManager{
             }
             
             let conversationId = "conversation_\(firstMessage.messageId)"
-            let mewConversation: [String: Any] = [
+            let newConversation: [String: Any] = [
                 "id": conversationId,
                 "other_user_email": otherUserEmail,
                 "name": name,
@@ -222,10 +222,35 @@ extension DatabaseManager{
                     "is_red": false
                 ]
             ]
+            let recipient_newConversation: [String: Any] = [
+                "id": conversationId,
+                "other_user_email": safeEmail,
+                "name": "Self",
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "is_red": false
+                ]
+            ]
             
+            //MARK: - Update recipient conversation entry
+            
+            self?.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: { [weak self] snapShot in
+                if let conversations = snapShot.value as? [[String: Any]]{
+                    // append
+                    conversations.append(recipient_newConversation)
+                    self?.database.child("\(otherUserEmail)/conversations").setValue(conversationId)
+                }else{
+                    // creation
+                    self?.database.child("\(otherUserEmail)/conversations").setValue([recipient_newConversation])
+                }
+            })
+            
+            
+            //MARK: -  Update current user conversation entry
             if var conversation = userNode["conversations"] as? [[String: Any]] {
                 // conversation array exists for current user you should append
-                conversation.append(mewConversation)
+                conversation.append(newConversation)
                 
                 userNode["conversations"] = conversation
                 
@@ -243,7 +268,7 @@ extension DatabaseManager{
             }else{
                 // create new conversation
                 userNode["conversations"] = [
-                    mewConversation
+                    newConversation
                 ]
                 
                 ref.setValue(userNode, withCompletionBlock: { [weak self] error, _ in
@@ -364,8 +389,37 @@ extension DatabaseManager{
     }
     
     /// Gets all the messages for given conversation
-    public func getAllTheMessagesForConversations(with email: String, completion: @escaping ((Result<String, Error>) -> Void)){
-        
+    public func getAllTheMessagesForConversations(with email: String, completion: @escaping ((Result<[Message], Error>) -> Void)){
+        database.child("\(email)/messages").observe(.value, with: { snapShot in
+            guard let value = snapShot.value as? [[String: Any]] else{
+                completion(.failure(DataBaseErrors.unableToFetchAllUser))
+                return
+            }
+            
+            let messages: [Message] = value.compactMap({ dictionary in
+                guard let messageId = dictionary["id"] as? String,
+                      let name = dictionary["name"] as? String,
+                      let senderEmail = dictionary["sender_email"] as? String,
+                      let content = dictionary["content"] as? String,
+                      let date = dictionary["date"] as? String,
+                      let type = dictionary["type"] as? String,
+                      let isRed = dictionary["is_red"] as? Bool,
+                      let dateString = ChatViewController.dateFormatter.date(from: date) else{
+                    return nil
+                }
+                
+                let sender = Sender(photoURL: "",
+                                    senderId: senderEmail,
+                                    displayName: name)
+                
+                return Message(sender: sender,
+                               messageId: messageId,
+                               sentDate: dateString,
+                               kind: .text(content))
+                
+            })
+            completion(.success(messages))
+        })
     }
     
     /// Sends a message with target conversation and message

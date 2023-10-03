@@ -106,7 +106,7 @@ class ConversationViewController: UIViewController {
               let email = result["email"] else{
             return
         }
-        let vc = ChatViewController(with: email)
+        let vc = ChatViewController(with: email, id: nil)
         vc.isNewConversation = true
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.hidesBottomBarWhenPushed = true
@@ -150,7 +150,7 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let mode = conversations[indexPath.row]
-        let vc = ChatViewController(with: mode.otherUserEmail)
+        let vc = ChatViewController(with: mode.otherUserEmail, id: mode.id)
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.title = mode.name
         vc.hidesBottomBarWhenPushed = true
