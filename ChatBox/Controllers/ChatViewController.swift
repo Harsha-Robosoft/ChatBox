@@ -155,11 +155,19 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
             })
         }else{
             // append to existing convo
-            DatabaseManager.shared.sendMessage(to: otherUserEmail, message: message, completion: { success in
+            
+            guard let conversation = conversationId,
+            let name = self.title else {
+                return
+            }
+            
+            DatabaseManager.shared.sendMessage(to_conversation: conversation, otherUserEmail: otherUserEmail,name: name, newMessage: message, completion: { success in
                 if success{
                     print("continuous message sent")
                 }else{
                     print("failed to send continuous message")
+                    
+                    
                 }
             })
         }
