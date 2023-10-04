@@ -21,6 +21,26 @@ final class DatabaseManager{
         return safeEmail
     }
     
+    enum DataBaseErrors: Error{
+        case unableToFetchAllUser
+        case unableToFetchData
+    }
+    
+}
+
+//MARK: - This is to get user first and last name when user sign in with fire base to save it to user defaults
+
+extension DatabaseManager{
+    
+    public func getDataFor(path: String, completion: @escaping ((Result<Any, Error>) -> Void)){
+        self.database.child(path).observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value else{
+                completion(.failure(DataBaseErrors.unableToFetchData))
+                return
+            }
+            completion(.success(value))
+        })
+    }
 }
 
 //MARK: - User registration
@@ -124,11 +144,6 @@ extension DatabaseManager{
         })
     }
     
-    
-    enum DataBaseErrors: Error{
-        case unableToFetchAllUser
-    }
-    
 }
 
 
@@ -171,14 +186,15 @@ extension DatabaseManager{
     
     /// create a new conversation with target user email and first message
     public func createNewConversation(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping ((Bool) -> Void)){
-        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-            
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String,
+              let currentUserName = UserDefaults.standard.value(forKey: "name") as? String else {
+                  
             return
         }
         let safeEmail = DatabaseManager.safeEmail(email: currentUserEmail)
         let ref = database.child(safeEmail)
         
-        ref.observeSingleEvent(of: .value, with: { snapShot in
+        ref.observeSingleEvent(of: .value, with: { [weak self] snapShot in
             guard var userNode = snapShot.value as? [String: Any] else {
                 completion(false)
                 print("user not found")
@@ -212,6 +228,7 @@ extension DatabaseManager{
             }
             
             let conversationId = "conversation_\(firstMessage.messageId)"
+            
             let newConversation: [String: Any] = [
                 "id": conversationId,
                 "other_user_email": otherUserEmail,
@@ -222,10 +239,11 @@ extension DatabaseManager{
                     "is_red": false
                 ]
             ]
+            
             let recipient_newConversation: [String: Any] = [
                 "id": conversationId,
                 "other_user_email": safeEmail,
-                "name": "Self",
+                "name": currentUserName,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
@@ -235,14 +253,15 @@ extension DatabaseManager{
             
             //MARK: - Update recipient conversation entry
             
-            self?.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: { [weak self] snapShot in
-                if let conversations = snapShot.value as? [[String: Any]]{
+            self?.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: { [weak self] snap in
+                if var conversations = snap.value as? [[String: Any]] {
                     // append
                     conversations.append(recipient_newConversation)
                     self?.database.child("\(otherUserEmail)/conversations").setValue(conversationId)
                 }else{
-                    // creation
+                    // create
                     self?.database.child("\(otherUserEmail)/conversations").setValue([recipient_newConversation])
+                    
                 }
             })
             
@@ -402,8 +421,8 @@ extension DatabaseManager{
                       let senderEmail = dictionary["sender_email"] as? String,
                       let content = dictionary["content"] as? String,
                       let date = dictionary["date"] as? String,
-                      let type = dictionary["type"] as? String,
-                      let isRed = dictionary["is_red"] as? Bool,
+//                      let type = dictionary["type"] as? String,
+//                      let isRed = dictionary["is_red"] as? Bool,
                       let dateString = ChatViewController.dateFormatter.date(from: date) else{
                     return nil
                 }

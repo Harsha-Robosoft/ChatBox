@@ -48,6 +48,9 @@ class LoginViewController: UIViewController {
         loginButtonTapped()
     }
     
+    
+    //MARK: - Firebase login
+    
     func loginButtonTapped(){
         
         emailField.resignFirstResponder()
@@ -74,6 +77,25 @@ class LoginViewController: UIViewController {
                 return
             }
             let user = result.user
+            
+            let safeEmail = DatabaseManager.safeEmail(email: email)
+            
+            DatabaseManager.shared.getDataFor(path: safeEmail, completion: { result in
+                switch result{
+                    
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["first_name"] as? String,
+                          let lastName = userData["last_name"] as? String else{
+                        return
+                    }
+                    print("user name is: \(firstName) \(lastName)")
+                    UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                case .failure(let error):
+                    print("error while fetching user name: \(error)")
+                }
+            })
+            
             UserDefaults.standard.set(email, forKey: "email")
             strongSelf.dismissSpinner()
             strongSelf.navigationController?.dismiss(animated: true)
@@ -100,6 +122,8 @@ extension LoginViewController: UITextFieldDelegate{
     }
     
 }
+
+//MARK: - Facebook login
 
 extension LoginViewController: LoginButtonDelegate{
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
@@ -140,6 +164,7 @@ extension LoginViewController: LoginButtonDelegate{
             }
             
             UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
             
             // here we are checking if user already exist with this email
             
