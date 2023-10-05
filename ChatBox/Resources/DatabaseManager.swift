@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import MessageKit
 
 final class DatabaseManager{
     
@@ -416,14 +417,38 @@ extension DatabaseManager{
             }
             
             let messages: [Message] = value.compactMap({ dictionary in
+                
                 guard let messageId = dictionary["id"] as? String,
                       let name = dictionary["name"] as? String,
                       let senderEmail = dictionary["sender_email"] as? String,
                       let content = dictionary["content"] as? String,
                       let date = dictionary["date"] as? String,
-//                      let type = dictionary["type"] as? String,
-//                      let isRed = dictionary["is_read"] as? Bool,
+                      let type = dictionary["type"] as? String,
+                      let isRed = dictionary["is_read"] as? Bool,
                       let dateString = ChatViewController.dateFormatter.date(from: date) else{
+                    return nil
+                }
+                
+                var kind: MessageKind?
+
+                if type == "photo"{
+                    // photo
+                    guard let imageUrl = URL(string: content),
+                    let placeHolder = UIImage(systemName: "plus") else{
+                        return nil
+                    }
+                    let media = Media(url: imageUrl,
+                                      image: nil,
+                                      placeholderImage: placeHolder,
+                                      size: CGSize(width: 300, height: 300))
+                    kind = .photo(media)
+                }
+                else{
+                    // text
+                    kind = .text(content)
+                }
+
+                guard let finalKind = kind else {
                     return nil
                 }
                 
@@ -434,7 +459,7 @@ extension DatabaseManager{
                 return Message(sender: sender,
                                messageId: messageId,
                                sentDate: dateString,
-                               kind: .text(content))
+                               kind: finalKind)
                 
             })
             completion(.success(messages))
@@ -470,7 +495,10 @@ extension DatabaseManager{
                 message = messageTxt
             case .attributedText(_):
                 break
-            case .photo(_):
+            case .photo(let mediaItem):
+                if let targetUrlString = mediaItem.url?.absoluteString{
+                    message = targetUrlString
+                }
                 break
             case .video(_):
                 break
