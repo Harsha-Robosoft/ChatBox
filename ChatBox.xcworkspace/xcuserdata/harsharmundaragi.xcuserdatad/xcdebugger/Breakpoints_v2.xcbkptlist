@@ -343,16 +343,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "39FA6490-D676-4528-803C-0EFD228436F1"
+            uuid = "2EDCD0B8-4851-4885-9284-1ED91F1DA0E2"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatBox/Resources/DatabaseManager.swift"
+            filePath = "ChatBox/Controllers/ConversationViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
-            landmarkName = "getAllTheConversations(for:completion:)"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "startListeningForConversation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AEDF30D9-7276-487C-AB59-A2B092D95EB2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatBox/Controllers/ConversationViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "startListeningForConversation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -236,7 +236,7 @@ extension DatabaseManager{
                 "latest_message": [
                     "date": dateString,
                     "message": message,
-                    "is_red": false
+                    "is_read": false
                 ]
             ]
             
@@ -247,7 +247,7 @@ extension DatabaseManager{
                 "latest_message": [
                     "date": dateString,
                     "message": message,
-                    "is_red": false
+                    "is_read": false
                 ]
             ]
             
@@ -357,7 +357,7 @@ extension DatabaseManager{
             "content": message,
             "date": dateString,
             "sender_email": currentUserEmail,
-            "is_red": false,
+            "is_read": false,
             "name": name
         ]
         
@@ -383,7 +383,7 @@ extension DatabaseManager{
                 completion(.failure(DataBaseErrors.unableToFetchAllUser))
                 return
             }
-            
+                        
             let conversations: [Conversation] = value.compactMap({ dictionary in
                 guard let conversationId = dictionary["id"] as? String,
                       let name = dictionary["name"] as? String,
@@ -391,7 +391,7 @@ extension DatabaseManager{
                       let latestMessage = dictionary["latest_message"] as? [String: Any],
                       let date = latestMessage["date"] as? String,
                       let message = latestMessage["message"] as? String,
-                      let isRed = latestMessage["is_red"] as? Bool else{
+                      let isRed = latestMessage["is_read"] as? Bool else{
                     return nil
                 }
                 
@@ -422,7 +422,7 @@ extension DatabaseManager{
                       let content = dictionary["content"] as? String,
                       let date = dictionary["date"] as? String,
 //                      let type = dictionary["type"] as? String,
-//                      let isRed = dictionary["is_red"] as? Bool,
+//                      let isRed = dictionary["is_read"] as? Bool,
                       let dateString = ChatViewController.dateFormatter.date(from: date) else{
                     return nil
                 }
@@ -503,7 +503,7 @@ extension DatabaseManager{
                 "content": message,
                 "date": dateString,
                 "sender_email": currentUserEmail,
-                "is_red": false,
+                "is_read": false,
                 "name": name
             ]
         
@@ -555,52 +555,52 @@ extension DatabaseManager{
                         //MARK: - update the latest message for recipient user
                         //
                         
-                        self?.updateTindata(otherUserEmail: otherUserEmail,
-                                            dateString: dateString,
-                                            message: message,
-                                            conversation: conversation,
-                                            completion: completion)
+//                        self?.updateTindata(otherUserEmail: otherUserEmail,
+//                                            dateString: dateString,
+//                                            message: message,
+//                                            conversation: conversation,
+//                                            completion: completion)
                         
-//                        self?.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: {[weak self] snapShot in
-//                            guard var otherUserConversation = snapShot.value as? [[String: Any]] else{
-//                                completion(false)
-//                                return
-//                            }
-//
-//
-//                            let updatedValue: [String: Any] = [
-//                                "date": dateString,
-//                                "is_read": false,
-//                                "message": message
-//                            ]
-//                            var targetConversation: [String: Any]?
-//                            var position = 0
-//
-//                            for conversationDictionary in otherUserConversation{
-//                                if let currentId = conversationDictionary["id"] as? String,
-//                                   currentId == conversation {
-//                                    targetConversation = conversationDictionary
-//                                    break
-//                                }
-//                                position += 1
-//                            }
-//
-//                            targetConversation?["latest_message"] = updatedValue
-//                            guard let finalConversation = targetConversation else{
-//                                completion(false)
-//                                return
-//                            }
-//                            otherUserConversation[position] = finalConversation
-//
-//                            self?.database.child("\(otherUserEmail)/conversations").setValue(otherUserConversation, withCompletionBlock: { error, _ in
-//                                guard error == nil else {
-//                                    completion(false)
-//                                    return
-//                                }
-//
-//                                completion(true)
-//                            })
-//                        })
+                        self?.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: {[weak self] snapShot in
+                            guard var otherUserConversation = snapShot.value as? [[String: Any]] else{
+                                completion(false)
+                                return
+                            }
+
+
+                            let updatedValue: [String: Any] = [
+                                "date": dateString,
+                                "is_read": false,
+                                "message": message
+                            ]
+                            var targetConversation: [String: Any]?
+                            var position = 0
+
+                            for conversationDictionary in otherUserConversation{
+                                if let currentId = conversationDictionary["id"] as? String,
+                                   currentId == conversation {
+                                    targetConversation = conversationDictionary
+                                    break
+                                }
+                                position += 1
+                            }
+
+                            targetConversation?["latest_message"] = updatedValue
+                            guard let finalConversation = targetConversation else{
+                                completion(false)
+                                return
+                            }
+                            otherUserConversation[position] = finalConversation
+
+                            self?.database.child("\(otherUserEmail)/conversations").setValue(otherUserConversation, withCompletionBlock: { error, _ in
+                                guard error == nil else {
+                                    completion(false)
+                                    return
+                                }
+
+                                completion(true)
+                            })
+                        })
                         //
 //                        completion(true)
                     })
@@ -611,48 +611,48 @@ extension DatabaseManager{
     
     
     
-    func updateTindata(otherUserEmail: String, dateString: String, message: String, conversation: String, completion: @escaping ((Bool) -> Void)){
-        self.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: {[weak self] snapShot in
-            guard var otherUserConversation = snapShot.value as? [[String: Any]] else{
-                completion(false)
-                return
-            }
-            
-            
-            let updatedValue: [String: Any] = [
-                "date": dateString,
-                "is_read": false,
-                "message": message
-            ]
-            var targetConversation: [String: Any]?
-            var position = 0
-            
-            for conversationDictionary in otherUserConversation{
-                if let currentId = conversationDictionary["id"] as? String,
-                   currentId == conversation {
-                    targetConversation = conversationDictionary
-                    break
-                }
-                position += 1
-            }
-            
-            targetConversation?["latest_message"] = updatedValue
-            guard let finalConversation = targetConversation else{
-                completion(false)
-                return
-            }
-            otherUserConversation[position] = finalConversation
-            
-            self?.database.child("\(otherUserEmail)/conversations").setValue(otherUserConversation, withCompletionBlock: { error, _ in
-                guard error == nil else {
-                    completion(false)
-                    return
-                }
-                
-                completion(true)
-            })
-        })
-    }
+//    func updateTindata(otherUserEmail: String, dateString: String, message: String, conversation: String, completion: @escaping ((Bool) -> Void)){
+//        self.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: {[weak self] snapShot in
+//            guard var otherUserConversation = snapShot.value as? [[String: Any]] else{
+//                completion(false)
+//                return
+//            }
+//
+//
+//            let updatedValue: [String: Any] = [
+//                "date": dateString,
+//                "is_read": false,
+//                "message": message
+//            ]
+//            var targetConversation: [String: Any]?
+//            var position = 0
+//
+//            for conversationDictionary in otherUserConversation{
+//                if let currentId = conversationDictionary["id"] as? String,
+//                   currentId == conversation {
+//                    targetConversation = conversationDictionary
+//                    break
+//                }
+//                position += 1
+//            }
+//
+//            targetConversation?["latest_message"] = updatedValue
+//            guard let finalConversation = targetConversation else{
+//                completion(false)
+//                return
+//            }
+//            otherUserConversation[position] = finalConversation
+//
+//            self?.database.child("\(otherUserEmail)/conversations").setValue(otherUserConversation, withCompletionBlock: { error, _ in
+//                guard error == nil else {
+//                    completion(false)
+//                    return
+//                }
+//
+//                completion(true)
+//            })
+//        })
+//    }
     
 }
 

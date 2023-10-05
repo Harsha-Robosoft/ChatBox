@@ -78,8 +78,10 @@ class ConversationViewController: UIViewController {
             switch result {
             case .success(let conversations):
                 guard !conversations.isEmpty else{
+                    print("empty")
                     return
                 }
+                print(conversations.count)
                 self?.conversations = conversations
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()

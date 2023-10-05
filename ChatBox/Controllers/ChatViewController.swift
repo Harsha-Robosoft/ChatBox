@@ -64,7 +64,7 @@ class ChatViewController: MessagesViewController {
     var messages = [Message]()
     var selfSender: Sender? {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-            
+            print(UserDefaults.standard.value(forKey: "email") as? String)
             return nil
         }
         
