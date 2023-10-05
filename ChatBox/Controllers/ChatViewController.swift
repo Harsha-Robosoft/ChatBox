@@ -64,7 +64,6 @@ class ChatViewController: MessagesViewController {
     var messages = [Message]()
     var selfSender: Sender? {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-            print(UserDefaults.standard.value(forKey: "email") as? String)
             return nil
         }
         
@@ -96,6 +95,21 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messageInputBar.delegate = self
+        setupInputButton()
+    }
+    
+    private func setupInputButton(){
+        let button = InputBarButtonItem()
+        button.setSize(CGSize(width: 35, height: 35), animated: false)
+        button.setImage(UIImage(systemName: "paperclip"), for: .normal)
+        button.onTouchUpInside({ [weak self] _ in
+            self?.presentActionSheet()
+        })
+        messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
+        messageInputBar.setStackViewItems([button], forStack: .left, animated: false)
+    }
+    
+    private func presentActionSheet(){
         
     }
     
