@@ -731,6 +731,17 @@ extension DatabaseManager{
             }
         })
     }
+    
+    public func conversationExists(with targetRecipientEmail: String, completion: @escaping ((Result<String, Error>) -> Void)){
+        let safeRecipientEmail = DatabaseManager.safeEmail(email: targetRecipientEmail)
+        guard let senderEmail = UserDefaults.standard.value(forKey: "email") as? String else{
+            completion(.failure(DataBaseErrors.unableToFetchAllUser))
+            return
+        }
+        
+        let safeSenderEmail = DatabaseManager.safeEmail(email: senderEmail)
+    }
+    
 }
 
 

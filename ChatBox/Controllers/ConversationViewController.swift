@@ -110,8 +110,21 @@ class ConversationViewController: UIViewController {
     @objc func createNewChatTapped(){
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
-            print(result)
-            self?.createNewConversation(result: result)
+            
+            let currentConversations = self?.conversations
+            
+            if let targetConversation = currentConversations?.first(where: {
+                $0.otherUserEmail == DatabaseManager.safeEmail(email: result.email)
+            }){
+                let vc = ChatViewController(with: targetConversation.otherUserEmail, id: targetConversation.id)
+                vc.isNewConversation = false
+                vc.navigationItem.largeTitleDisplayMode = .never
+                vc.hidesBottomBarWhenPushed = true
+                vc.title = targetConversation.name
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                self?.createNewConversation(result: result)
+            }
         }
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
@@ -164,13 +177,16 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let mode = conversations[indexPath.row]
-        let vc = ChatViewController(with: mode.otherUserEmail, id: mode.id)
+        let model = conversations[indexPath.row]
+        openConversation(model)
+    }
+    
+    func openConversation(_ model: Conversation){
+        let vc = ChatViewController(with: model.otherUserEmail, id: model.id)
         vc.navigationItem.largeTitleDisplayMode = .never
-        vc.title = mode.name
+        vc.title = model.name
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
