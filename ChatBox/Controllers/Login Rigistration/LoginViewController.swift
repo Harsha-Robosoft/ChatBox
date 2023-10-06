@@ -23,8 +23,19 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     let facebookLoginButton = FBLoginButton()
     
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification,
+                                               object: nil,
+                                               queue: .main,
+                                               using: { _ in
+            
+        })
+        
         title = "Log in"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(presentRegisterScreen))
         emailField.delegate = self
@@ -33,6 +44,12 @@ class LoginViewController: UIViewController {
         facebookLoginButton.permissions = ["public_profile", "email"]
         view.addSubview(facebookLoginButton)
         facebookLoginButton.delegate = self
+    }
+    
+    deinit{
+        if let observer = loginObserver{
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     @objc func presentRegisterScreen(){
@@ -98,6 +115,7 @@ class LoginViewController: UIViewController {
             
             UserDefaults.standard.set(email, forKey: "email")
             strongSelf.dismissSpinner()
+            NotificationCenter.default.post(name: .didLoginNotification, object: nil)
             strongSelf.navigationController?.dismiss(animated: true)
         })
         
@@ -222,7 +240,8 @@ extension LoginViewController: LoginButtonDelegate{
                     return
                 }
                 
-                print("Successfully logged in using Face book")
+                print("Successfully logged in using Facebook")
+                NotificationCenter.default.post(name: .didLoginNotification, object: nil)
                 strongSelf.navigationController?.dismiss(animated: true)
             })
         })

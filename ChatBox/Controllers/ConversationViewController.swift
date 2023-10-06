@@ -24,6 +24,8 @@ struct LatestMessage{
 
 class ConversationViewController: UIViewController {
 
+    
+    private var loginObserver: NSObjectProtocol?
     let spinner = JGProgressHUD(style: .dark)
     private var conversations = [Conversation]()
     let tableView: UITableView = {
@@ -57,6 +59,14 @@ class ConversationViewController: UIViewController {
         noConversationLbl.isHidden = true
         fetchConversation()
         startListeningForConversation()
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification,
+                                               object: nil,
+                                               queue: .main,
+                                               using: { [weak self] _ in
+            self?.startListeningForConversation()
+        })
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -70,6 +80,11 @@ class ConversationViewController: UIViewController {
     
     
     private func startListeningForConversation(){
+        
+        if let obserVer = loginObserver{
+            NotificationCenter.default.removeObserver(obserVer)
+        }
+        
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return
         }
@@ -102,12 +117,10 @@ class ConversationViewController: UIViewController {
         present(nav, animated: true)
     }
     
-    private func createNewConversation(result: [String: String]){
+    private func createNewConversation(result: SearchResult){
         
-        guard let name = result["name"],
-              let email = result["email"] else{
-            return
-        }
+        let name = result.name
+        let email = result.email
         let vc = ChatViewController(with: email, id: nil)
         vc.isNewConversation = true
         vc.navigationItem.largeTitleDisplayMode = .never
