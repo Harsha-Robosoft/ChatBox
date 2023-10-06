@@ -50,12 +50,12 @@ extension DatabaseManager{
     
     public func userExits(with email: String, completion: @escaping((Bool) -> Void)){
         
-        let safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        let safeEmail = DatabaseManager.safeEmail(email: email)
         
         print(safeEmail)
         
         database.child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
-            guard snapshot.value as? String != nil else{
+            guard snapshot.value as? [String:Any] != nil else{
                 completion(false)
                 return
             }
@@ -258,7 +258,7 @@ extension DatabaseManager{
                 if var conversations = snap.value as? [[String: Any]] {
                     // append
                     conversations.append(recipient_newConversation)
-                    self?.database.child("\(otherUserEmail)/conversations").setValue(conversationId)
+                    self?.database.child("\(otherUserEmail)/conversations").setValue(conversations)
                 }else{
                     // create
                     self?.database.child("\(otherUserEmail)/conversations").setValue([recipient_newConversation])
@@ -646,7 +646,7 @@ extension DatabaseManager{
                     })
                 })
             })
-        })
+        }) 
     }
     
     
@@ -694,6 +694,43 @@ extension DatabaseManager{
 //        })
 //    }
     
+    
+    public func deleteConversation(conversationId: String, completion: @escaping ((Bool) -> Void)){
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else{
+            completion(false)
+            return
+        }
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        print("deleting conversation with id: \(conversationId)")
+        // Get all conversation for current user
+        // Delete conversation in collection with target id
+        // Reset those conversation for user in data base
+        
+        let ref = database.child("\(safeEmail)/conversations")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if var conversations = snapshot.value as? [[String: Any]]{
+                var positionToRemove = 0
+                for conversation in conversations{
+                    if let id = conversation["id"] as? String,
+                       id == conversationId{
+                        print("found conversation to delete")
+                        break
+                    }
+                    positionToRemove += 1
+                }
+                conversations.remove(at: positionToRemove)
+                ref.setValue(conversations, withCompletionBlock: { error, _ in
+                    guard error == nil else{
+                        completion(false)
+                        print("failed to delete conversation")
+                        return
+                    }
+                    print("deleted the conversation")
+                    completion(true)
+                })
+            }
+        })
+    }
 }
 
 

@@ -176,4 +176,24 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            tableView.beginUpdates()
+            let convoId = conversations[indexPath.row].id
+            DatabaseManager.shared.deleteConversation(conversationId: convoId, completion: { [weak self] success in
+                if success{
+                    self?.conversations.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .left)
+                    print("deleted convo from firebase and also local")
+                }else{
+                    print(" failed to deleted convo from firebase and also local")
+                }
+            })
+            tableView.endUpdates()
+        }
+    }
 }
