@@ -133,13 +133,32 @@ class ConversationViewController: UIViewController {
     private func createNewConversation(result: SearchResult){
         
         let name = result.name
-        let email = result.email
-        let vc = ChatViewController(with: email, id: nil)
-        vc.isNewConversation = true
-        vc.navigationItem.largeTitleDisplayMode = .never
-        vc.hidesBottomBarWhenPushed = true
-        vc.title = name
-        navigationController?.pushViewController(vc, animated: true)
+        let email = DatabaseManager.safeEmail(email: result.email)
+        
+        // check in database if conversation with these two exists
+        // if does, reuse conversation id
+        //otherwise user existing code
+        
+        DatabaseManager.shared.conversationExists(with: email, completion: { [weak self] result in
+            switch result{
+            case .success(let conversationId):
+                print("continuing the conversation with deleted user")
+                let vc = ChatViewController(with: email, id: conversationId)
+                vc.isNewConversation = false
+                vc.navigationItem.largeTitleDisplayMode = .never
+                vc.hidesBottomBarWhenPushed = true
+                vc.title = name
+                self?.navigationController?.pushViewController(vc, animated: true)
+            case .failure(_):
+                print("creating a truly new conversation")
+                let vc = ChatViewController(with: email, id: nil)
+                vc.isNewConversation = true
+                vc.navigationItem.largeTitleDisplayMode = .never
+                vc.hidesBottomBarWhenPushed = true
+                vc.title = name
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        })
     }
     
     func checkForSigIn(){
