@@ -58,6 +58,9 @@ struct Media: MediaItem{
 
 class ChatViewController: MessagesViewController {
     
+    private var senderProfileUrl: URL?
+    private var otherUserProfileUrl: URL?
+    
     public static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -485,6 +488,66 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
         }else{
             // received message
             return .gray
+        }
+    }
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        let sender = message.sender
+        if sender.senderId == selfSender?.senderId{
+            // our image
+            if let currentUserUrl = self.senderProfileUrl{
+                avatarView.sd_setImage(with: currentUserUrl)
+            }else{
+                
+                guard let email = UserDefaults.standard.value(forKey: "email") as? String else{
+                    return
+                }
+                let safeEmail = DatabaseManager.safeEmail(email: email)
+                
+                let path = "image/\(safeEmail)_profile_picture.png"
+                
+                // Fetch url
+                StorageManager.shared.downloadImageURLForProfile(for: path, completion: { [weak self] result in
+                    switch result{
+                        
+                    case .success(let url):
+                        self?.senderProfileUrl = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url)
+                        }
+                    case .failure(let error):
+                        print("error to fetch current user image url: \(error)")
+                    }
+                })
+            }
+        }else{
+            // other user image
+            if let otherUserUrl = self.otherUserProfileUrl{
+                avatarView.sd_setImage(with: otherUserUrl)
+            }else{
+                
+                let email = self.otherUserEmail
+                let safeEmail = DatabaseManager.safeEmail(email: email)
+                
+                let path = "image/\(safeEmail)_profile_picture.png"
+                
+                
+                
+                // Fetch url
+                
+                StorageManager.shared.downloadImageURLForProfile(for: path, completion: { [weak self] result in
+                    switch result{
+                    case .success(let url):
+                        self?.otherUserProfileUrl = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url)
+                        }
+                    case .failure(let error):
+                        print("error to fetch otherotherUserProfileUrl user image url: \(error)")
+                    }
+                })
+                
+            }
         }
     }
     
