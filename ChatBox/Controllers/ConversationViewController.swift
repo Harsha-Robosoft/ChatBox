@@ -57,7 +57,7 @@ class ConversationViewController: UIViewController {
         setUpTableView()
         tableView.isHidden = true
         noConversationLbl.isHidden = true
-        fetchConversation()
+        
         startListeningForConversation()
         
         loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification,
@@ -76,6 +76,10 @@ class ConversationViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        noConversationLbl.frame = CGRect(x: 10,
+                                         y: (view.height - 100) / 2,
+                                         width: Int(view.width) - 20,
+                                         height: 100)
     }
     
     
@@ -89,20 +93,24 @@ class ConversationViewController: UIViewController {
             return
         }
         let safeEmail = DatabaseManager.safeEmail(email: email)
+        print("Fetching conversation")
         DatabaseManager.shared.getAllTheConversations(for: safeEmail, completion: { [weak self] result in
             switch result {
             case .success(let conversations):
                 guard !conversations.isEmpty else{
-                    print("empty")
+                    print("unable to fetch conversation")
+                    self?.fetchConversation()
                     return
                 }
-                print(conversations.count)
+                print("Fetching conversation completed...")
+                self?.fetchConversation()
                 self?.conversations = conversations
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
                 print("failed to get conversation: \(error)")
+                self?.fetchConversation()
             }
         })
     }
@@ -176,7 +184,13 @@ class ConversationViewController: UIViewController {
     }
 
     func fetchConversation(){
-        tableView.isHidden = false
+        if conversations.isEmpty{
+            tableView.isHidden = true
+            noConversationLbl.isHidden = false
+        }else{
+            tableView.isHidden = false
+            noConversationLbl.isHidden = true
+        }
     }
 }
 
