@@ -119,6 +119,8 @@ class RegistrationViewController: UIViewController {
                         
                     }
                 }
+                UserDefaults.standard.setValue(email, forKey: "email")
+                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
                 strongSelf.dismissSpinner()
                 strongSelf.navigationController?.dismiss(animated: true)
                 
