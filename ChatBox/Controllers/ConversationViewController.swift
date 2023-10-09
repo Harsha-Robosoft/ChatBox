@@ -9,21 +9,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
-struct Conversation{
-    let id: String
-    let name: String
-    let otherUserEmail: String
-    let latestMessage: LatestMessage
-}
-
-struct LatestMessage{
-    let date: String
-    let text: String
-    let isRed: Bool
-}
-
-class ConversationViewController: UIViewController {
-
+final class ConversationViewController: UIViewController {
     
     private var loginObserver: NSObjectProtocol?
     let spinner = JGProgressHUD(style: .dark)
@@ -32,6 +18,7 @@ class ConversationViewController: UIViewController {
        let table = UITableView()
         table.register(ConversationTableViewCell.self,
                        forCellReuseIdentifier: ConversationTableViewCell.identifier)
+        table.isHidden = true
         return table
     }()
     
@@ -42,6 +29,7 @@ class ConversationViewController: UIViewController {
         lbl.text = "No conversation!"
         lbl.textAlignment = .center
         lbl.textColor = .gray
+        lbl.isHidden = true
         lbl.font = .systemFont(ofSize: 21, weight: .medium)
         return lbl
     }()
@@ -51,13 +39,9 @@ class ConversationViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
                                                             target: self,
                                                             action: #selector(createNewChatTapped))
-        view.backgroundColor = .gray
         view.addSubview(tableView)
         view.addSubview(noConversationLbl)
         setUpTableView()
-        tableView.isHidden = true
-        noConversationLbl.isHidden = true
-        
         startListeningForConversation()
         
         loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification,
@@ -78,7 +62,7 @@ class ConversationViewController: UIViewController {
         tableView.frame = view.bounds
         noConversationLbl.frame = CGRect(x: 10,
                                          y: (view.height - 100) / 2,
-                                         width: Int(view.width) - 20,
+                                         width: view.width - 20,
                                          height: 100)
     }
     
@@ -93,24 +77,27 @@ class ConversationViewController: UIViewController {
             return
         }
         let safeEmail = DatabaseManager.safeEmail(email: email)
-        print("Fetching conversation")
+        print("fetching the conversations")
         DatabaseManager.shared.getAllTheConversations(for: safeEmail, completion: { [weak self] result in
             switch result {
             case .success(let conversations):
                 guard !conversations.isEmpty else{
-                    print("unable to fetch conversation")
-                    self?.fetchConversation()
+                    print("failed to fetch conversations")
+                    self?.tableView.isHidden = true
+                    self?.noConversationLbl.isHidden = false
                     return
                 }
-                print("Fetching conversation completed...")
-                self?.fetchConversation()
+                print("fetching conversations completed...")
+                self?.tableView.isHidden = false
+                self?.noConversationLbl.isHidden = true
                 self?.conversations = conversations
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
+                self?.tableView.isHidden = true
+                self?.noConversationLbl.isHidden = false
                 print("failed to get conversation: \(error)")
-                self?.fetchConversation()
             }
         })
     }
@@ -182,16 +169,6 @@ class ConversationViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-
-    func fetchConversation(){
-        if conversations.isEmpty{
-            tableView.isHidden = true
-            noConversationLbl.isHidden = false
-        }else{
-            tableView.isHidden = false
-            noConversationLbl.isHidden = true
-        }
-    }
 }
 
 
@@ -233,15 +210,18 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
         if editingStyle == .delete{
             tableView.beginUpdates()
             let convoId = conversations[indexPath.row].id
-            DatabaseManager.shared.deleteConversation(conversationId: convoId, completion: { [weak self] success in
+            DatabaseManager.shared.deleteConversation(conversationId: convoId, completion: { success in
                 if success{
-                    self?.conversations.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .left)
                     print("deleted convo from firebase and also local")
+                    
                 }else{
                     print(" failed to deleted convo from firebase and also local")
+                    tableView.endUpdates()
+                    return
                 }
             })
+            conversations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
             tableView.endUpdates()
         }
     }

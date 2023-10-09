@@ -51,7 +51,7 @@ class NewConversationTableViewCell: UITableViewCell {
     }
     
     public func configure(with model: SearchResult){
-        self.userNameLbl.text = model.name
+        userNameLbl.text = model.name
         let path = "image/\(model.email)_profile_picture.png"
         StorageManager.shared.downloadImageURLForProfile(for: path, completion: { [weak self] result in
             switch result{

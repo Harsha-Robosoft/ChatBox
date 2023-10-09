@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class PhotoViewerViewController: UIViewController {
+final class PhotoViewerViewController: UIViewController {
 
     private let url: URL
     
@@ -29,7 +29,7 @@ class PhotoViewerViewController: UIViewController {
         view.backgroundColor = .white
         imageView.backgroundColor = .black
         view.addSubview(imageView)
-        imageView.sd_setImage(with: self.url)
+        imageView.sd_setImage(with: url)
     }
     
     override func viewDidLayoutSubviews() {

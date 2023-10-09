@@ -10,17 +10,7 @@ import FirebaseAuth
 import FBSDKLoginKit
 import SDWebImage
 
-enum ProfileViewModelType{
-    case info, logout
-}
-
-struct ProfileViewModel{
-    let viewModelType: ProfileViewModelType
-    let title: String
-    let handler: (() -> ())?
-}
-
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     var dataTa = [ProfileViewModel]()
 
@@ -79,7 +69,7 @@ class ProfileViewController: UIViewController {
         
         let headerView = UIView(frame: CGRect(x: 0,
                                         y: 0,
-                                        width: self.view.width,
+                                        width: view.width,
                                         height: 300))
         headerView.backgroundColor = .lightGray
         let imageView = UIImageView(frame: CGRect(x: (headerView.width - 150) / 2,
@@ -133,16 +123,16 @@ class ProfileTableViewCell: UITableViewCell {
     static let identifier = "ProfileTableViewCell"
     
     public func setUp(with viewModel: ProfileViewModel){
-        self.textLabel?.text = viewModel.title
+        textLabel?.text = viewModel.title
         
         switch viewModel.viewModelType{
         case .info:
-            self.textLabel?.textAlignment = .left
-            self.textLabel?.textColor = .black
-            self.selectionStyle = .none
+            textLabel?.textAlignment = .left
+            textLabel?.textColor = .black
+            selectionStyle = .none
         case .logout:
-            self.textLabel?.textColor = .red
-            self.textLabel?.textAlignment = .center
+            textLabel?.textColor = .red
+            textLabel?.textAlignment = .center
         }
     }
 }

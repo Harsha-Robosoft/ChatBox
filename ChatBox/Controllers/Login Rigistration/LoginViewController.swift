@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import JGProgressHUD
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     let spinner = JGProgressHUD(style: .dark)
     
@@ -122,8 +122,8 @@ class LoginViewController: UIViewController {
     }
     
     func dismissSpinner(){
-        DispatchQueue.main.async {
-            self.spinner.dismiss(animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.spinner.dismiss(animated: true)
         }
     }
 }

@@ -34,7 +34,7 @@ final class DatabaseManager{
 extension DatabaseManager{
     
     public func getDataFor(path: String, completion: @escaping ((Result<Any, Error>) -> Void)){
-        self.database.child(path).observeSingleEvent(of: .value, with: { snapshot in
+        database.child(path).observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value else{
                 completion(.failure(DataBaseErrors.unableToFetchData))
                 return
@@ -73,7 +73,7 @@ extension DatabaseManager{
         database.child(user.safeEmail).setValue([
             "first_name": user.firstName,
             "last_name": user.lastName
-        ], withCompletionBlock: { error, _ in
+        ], withCompletionBlock: { [weak self] error, _ in
             guard error == nil else{
                 print("Failed to write to database")
                 completion(false)
@@ -98,7 +98,7 @@ extension DatabaseManager{
              
              
              */
-            self.database.child("users").observeSingleEvent(of: .value, with: { snapShot in
+            self?.database.child("users").observeSingleEvent(of: .value, with: { snapShot in
                 if var userCollection = snapShot.value as? [[String: String]] {
                     // append to user dictionary
                     
@@ -107,7 +107,7 @@ extension DatabaseManager{
                         "email": user.safeEmail
                     ]
                     userCollection.append(newElement)
-                    self.database.child("users").setValue(userCollection, withCompletionBlock: { error, _ in
+                    self?.database.child("users").setValue(userCollection, withCompletionBlock: { error, _ in
                         guard error == nil else{
                             completion(false)
                             return
@@ -123,7 +123,7 @@ extension DatabaseManager{
                         ]
                     ]
                     
-                    self.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                    self?.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
                         guard error == nil else{
                             completion(false)
                             return
@@ -491,7 +491,7 @@ extension DatabaseManager{
         
         
         
-        self.database.child("\(conversation)/messages").observeSingleEvent(of: .value, with: { [weak self] snap in
+        database.child("\(conversation)/messages").observeSingleEvent(of: .value, with: { [weak self] snap in
             guard var currentMessage = snap.value as? [[String: Any]] else{
                 completion(false)
                 return

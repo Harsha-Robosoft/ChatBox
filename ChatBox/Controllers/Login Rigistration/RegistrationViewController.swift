@@ -8,7 +8,8 @@
 import UIKit
 import FirebaseAuth
 import JGProgressHUD
-class RegistrationViewController: UIViewController {
+
+final class RegistrationViewController: UIViewController {
 
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var firstNameField: UITextField!
@@ -133,8 +134,8 @@ class RegistrationViewController: UIViewController {
     }
     
     func dismissSpinner(){
-        DispatchQueue.main.async {
-            self.spinner.dismiss(animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.spinner.dismiss(animated: true)
         }
     }
     
