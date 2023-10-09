@@ -477,4 +477,15 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
         }
     }
     
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        let sender = message.sender
+        if sender.senderId == selfSender?.senderId{
+            // our sent message
+            return .link
+        }else{
+            // received message
+            return .gray
+        }
+    }
+    
 }

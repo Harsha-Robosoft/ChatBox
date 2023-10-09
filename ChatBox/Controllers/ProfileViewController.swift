@@ -8,14 +8,58 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import SDWebImage
+
+enum ProfileViewModelType{
+    case info, logout
+}
+
+struct ProfileViewModel{
+    let viewModelType: ProfileViewModelType
+    let title: String
+    let handler: (() -> ())?
+}
 
 class ProfileViewController: UIViewController {
     
-    let data = ["Sign out"]
+    var dataTa = [ProfileViewModel]()
 
     @IBOutlet weak var tableView01: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataTa.append(ProfileViewModel(viewModelType: .info,
+                                       title: "Name: \(UserDefaults.standard.value(forKey: "name") as? String ?? "No Name")",
+                                     handler: nil))
+        dataTa.append(ProfileViewModel(viewModelType: .info,
+                                       title: "Email: \(UserDefaults.standard.value(forKey: "email") as? String ?? "No email")",
+                                     handler: nil))
+        dataTa.append(ProfileViewModel(viewModelType: .logout, title: "Log Out", handler: { [weak self] in
+            
+            let ac = UIAlertController(title: "Are sure want to logout?", message: nil, preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+            ac.addAction(UIAlertAction(title: "Sign out", style: .destructive, handler: { [weak self] _ in
+                
+                guard let strongSelf = self else{
+                    return
+                }
+                
+                    // log out from Facebook
+                
+                FBSDKLoginKit.LoginManager().logOut()
+                
+                do{
+                    try FirebaseAuth.Auth.auth().signOut()
+                    let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                    let nav = UINavigationController(rootViewController: vc)
+                    nav.modalPresentationStyle = .fullScreen
+                    strongSelf.present(nav, animated: true)
+                }catch{
+                    print("error while sign out")
+                }
+            }))
+            self?.present(ac, animated: true)
+        }))
+        tableView01.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         tableView01.delegate = self
         tableView01.dataSource = self
         tableView01.tableHeaderView = createTableHeader()
@@ -48,10 +92,10 @@ class ProfileViewController: UIViewController {
         imageView.layer.borderColor = UIColor.white.cgColor
         headerView.addSubview(imageView)
         
-        StorageManager.shared.downloadImageURLForProfile(for: path, completion: { [weak self] result in
+        StorageManager.shared.downloadImageURLForProfile(for: path, completion: { result in
             switch result{
             case .success(let url):
-                self?.downloadImage(for: imageView, url: url)
+                imageView.sd_setImage(with: url)
             case .failure(let failString):
                 print(failString)
             }
@@ -60,60 +104,43 @@ class ProfileViewController: UIViewController {
         
         return headerView
     }
-    
-    func downloadImage(for imageView: UIImageView, url: URL){
-        URLSession.shared.dataTask(with: url, completionHandler: { data, urlResponce, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                imageView.image = image
-            }
-        }).resume()
-    }
 
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return dataTa.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text = data[indexPath.row]
+        let viewModel = dataTa[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier) as? ProfileTableViewCell
+        cell?.setUp(with: viewModel)
         return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        let ac = UIAlertController(title: "Are sure want to logout?", message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
-        ac.addAction(UIAlertAction(title: "Sign out", style: .destructive, handler: { [weak self] _ in
-            
-            guard let strongSelf = self else{
-                return
-            }
-            
-                // logging out from Facebook
-            
-            FBSDKLoginKit.LoginManager().logOut()
-            
-            do{
-                try FirebaseAuth.Auth.auth().signOut()
-                let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                strongSelf.present(nav, animated: true)
-            }catch{
-                print("error while sign out")
-            }
-        }))
-        present(ac, animated: true)
+        dataTa[indexPath.row].handler?()
     }
     
+}
+
+
+class ProfileTableViewCell: UITableViewCell {
+    static let identifier = "ProfileTableViewCell"
+    
+    public func setUp(with viewModel: ProfileViewModel){
+        self.textLabel?.text = viewModel.title
+        
+        switch viewModel.viewModelType{
+        case .info:
+            self.textLabel?.textAlignment = .left
+            self.textLabel?.textColor = .black
+            self.selectionStyle = .none
+        case .logout:
+            self.textLabel?.textColor = .red
+            self.textLabel?.textAlignment = .center
+        }
+    }
 }
