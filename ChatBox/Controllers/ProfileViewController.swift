@@ -35,10 +35,22 @@ final class ProfileViewController: UIViewController {
                 
                 UserDefaults.standard.setValue(nil, forKey: "email")
                 UserDefaults.standard.setValue(nil, forKey: "name")
-                    // log out from Facebook
+                
+                
+                //MARK: - Log out from Facebook
                 
                 FBSDKLoginKit.LoginManager().logOut()
                 
+                //MARK: - Log out from google
+                
+                let firebaseAuth = Auth.auth()
+                do {
+                  try firebaseAuth.signOut()
+                } catch let signOutError as NSError {
+                  print("Error signing out: %@", signOutError)
+                }
+                
+                //MARK: - Log out from firebase
                 do{
                     try FirebaseAuth.Auth.auth().signOut()
                     let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
