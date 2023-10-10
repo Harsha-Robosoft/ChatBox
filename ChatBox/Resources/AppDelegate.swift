@@ -10,6 +10,8 @@ import Firebase
 import FBSDKCoreKit
 import FBSDKLoginKit
 
+import GoogleSignIn
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -55,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                 annotation: options[UIApplication.OpenURLOptionsKey.annotation]
             )
+            
+            return GIDSignIn.sharedInstance.handle(url)
         }
 
 }

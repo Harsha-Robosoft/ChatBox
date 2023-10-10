@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import FBSDKCoreKit
 import FBSDKLoginKit
 import JGProgressHUD
+import GoogleSignIn
 
 final class LoginViewController: UIViewController {
     
@@ -21,6 +23,10 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var loginButton: UIButton!
+    
+    
+    var signInButton = GIDSignInButton()
+    
     let facebookLoginButton = FBLoginButton()
     
     private var loginObserver: NSObjectProtocol?
@@ -40,10 +46,13 @@ final class LoginViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(presentRegisterScreen))
         emailField.delegate = self
         passwordField.delegate = self
-        facebookLoginButton.frame = CGRect(x: scrollView.frame.width / 2 - 157, y:  loginButton.bottom + 120 , width: 314, height: 52)
+        
+        view.addSubview(signInButton)
         facebookLoginButton.permissions = ["public_profile", "email"]
         view.addSubview(facebookLoginButton)
         facebookLoginButton.delegate = self
+        
+        signInButton.addTarget(self, action: #selector(googleSignIn), for: .touchUpInside)
     }
     
     deinit{
@@ -51,6 +60,44 @@ final class LoginViewController: UIViewController {
             NotificationCenter.default.removeObserver(observer)
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        facebookLoginButton.frame = CGRect(x: scrollView.frame.width / 2 - 157, y:  loginButton.bottom + 120 , width: 314, height: 52)
+        signInButton.frame = CGRect(x: scrollView.frame.width / 2 - 157, y:  loginButton.bottom + 200 , width: 314, height: 52)
+    }
+    
+    @objc func googleSignIn(){
+        print("google")
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: LoginViewController()) { result, error in
+          guard error == nil else {
+            return
+          }
+        
+          guard let user = result?.user,
+            let idToken = user.idToken?.tokenString
+          else {
+            return
+          }
+        
+          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: user.accessToken.tokenString)
+        
+            Auth.auth().signIn(with: credential) { result, error in
+        
+              // At this point, our user is signed in
+            }
+        }
+    }
+    
+    
     
     @objc func presentRegisterScreen(){
         let vc = storyboard?.instantiateViewController(withIdentifier: "RegistrationViewController") as! RegistrationViewController
@@ -247,3 +294,33 @@ extension LoginViewController: LoginButtonDelegate{
         })
     }
 }
+
+
+
+
+//guard let clientID = FirebaseApp.app()?.options.clientID else { return false }
+//
+//// Create Google Sign In configuration object.
+//let config = GIDConfiguration(clientID: clientID)
+//GIDSignIn.sharedInstance.configuration = config
+//
+//// Start the sign in flow!
+//GIDSignIn.sharedInstance.signIn(withPresenting: LoginViewController()) { result, error in
+//  guard error == nil else {
+//    return
+//  }
+//
+//  guard let user = result?.user,
+//    let idToken = user.idToken?.tokenString
+//  else {
+//    return
+//  }
+//
+//  let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+//                                                 accessToken: user.accessToken.tokenString)
+//
+//    Auth.auth().signIn(with: credential) { result, error in
+//
+//      // At this point, our user is signed in
+//    }
+//}
