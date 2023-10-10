@@ -100,8 +100,6 @@ final class LoginViewController: UIViewController {
                 strongSelf.dismissSpinner()
                 return
             }
-            let user = result.user
-            
             let safeEmail = DatabaseManager.safeEmail(email: email)
             
             DatabaseManager.shared.getDataFor(path: safeEmail, completion: { result in
@@ -257,13 +255,6 @@ extension LoginViewController: LoginButtonDelegate{
 
 extension LoginViewController{
     @objc func googleSignIn(){
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first,
-              let rootViewController = window.rootViewController
-        else{
-            print("unable to get root view")
-            return
-        }
                 
         GIDSignIn.sharedInstance.signIn(withPresenting: self, completion: { result, error in
             guard error == nil,
