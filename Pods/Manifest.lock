@@ -1,4 +1,10 @@
 PODS:
+  - AppAuth (1.6.2):
+    - AppAuth/Core (= 1.6.2)
+    - AppAuth/ExternalUserAgent (= 1.6.2)
+  - AppAuth/Core (1.6.2)
+  - AppAuth/ExternalUserAgent (1.6.2):
+    - AppAuth/Core
   - FBAEMKit (16.1.3):
     - FBSDKCoreKit_Basics (= 16.1.3)
   - FBSDKCoreKit (16.1.3):
@@ -90,6 +96,10 @@ PODS:
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleSignIn (7.0.0):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (< 3.0, >= 1.3)
+    - GTMSessionFetcher/Core (< 4.0, >= 1.1)
   - GoogleUtilities/AppDelegateSwizzler (7.11.5):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -109,6 +119,9 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.11.5):
     - GoogleUtilities/Logger
+  - GTMAppAuth (2.0.0):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 4.0, >= 1.5)
   - GTMSessionFetcher/Core (3.1.1)
   - InputBarAccessoryView (5.5.0):
     - InputBarAccessoryView/Core (= 5.5.0)
@@ -140,6 +153,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - GoogleSignIn
   - JGProgressHUD
   - MessageKit
   - RealmSwift
@@ -147,6 +161,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppAuth
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -163,7 +178,9 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseStorage
     - GoogleAppMeasurement
+    - GoogleSignIn
     - GoogleUtilities
+    - GTMAppAuth
     - GTMSessionFetcher
     - InputBarAccessoryView
     - JGProgressHUD
@@ -177,6 +194,7 @@ SPEC REPOS:
     - SDWebImage
 
 SPEC CHECKSUMS:
+  AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   FBAEMKit: af2972f39bb0f3f7c45998f435b007833c32ffb2
   FBSDKCoreKit: 19e2e18b3be578d7a51fed8fdd8c152bef0b9511
   FBSDKCoreKit_Basics: dd9826ce3c9fd9f8cdf8dbbd0ef0a53e6c0c9e7e
@@ -193,7 +211,9 @@ SPEC CHECKSUMS:
   FirebaseInstallations: cae95cab0f965ce05b805189de1d4c70b11c76fb
   FirebaseStorage: 1d4be239ea32fb3c0f3680a6f2b706d6cabe37f2
   GoogleAppMeasurement: 722db6550d1e6d552b08398b69a975ac61039338
+  GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
+  GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   InputBarAccessoryView: 1d7b0a672b36e370f01f264b3907ef39d03328e3
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
@@ -206,6 +226,6 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SDWebImage: c0de394d7cf7f9838aed1fd6bb6037654a4572e4
 
-PODFILE CHECKSUM: b00e3230a994a671b1332a5083d0224b2bd6d66c
+PODFILE CHECKSUM: d6f207bf60167e967e84228a778f48faeee847d8
 
 COCOAPODS: 1.12.1

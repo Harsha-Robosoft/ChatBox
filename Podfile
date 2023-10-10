@@ -6,12 +6,18 @@ target 'ChatBox' do
   use_frameworks!
 
 
-# Firebse
+# Firebase
 
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+
+
+# GoogleSignIn
+
+  pod 'GoogleSignIn'
+
 
 # Facebook login
 
