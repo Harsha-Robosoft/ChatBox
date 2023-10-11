@@ -424,7 +424,7 @@ extension DatabaseManager{
                       let content = dictionary["content"] as? String,
                       let date = dictionary["date"] as? String,
                       let type = dictionary["type"] as? String,
-                      _ = dictionary["is_read"] as? Bool,
+                      let _ = dictionary["is_read"] as? Bool,
                       let dateString = ChatViewController.dateFormatter.date(from: date) else{
                     return nil
                 }

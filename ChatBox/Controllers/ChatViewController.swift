@@ -307,8 +307,8 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
                 if isSuccess{
                     print("sent message")
                     self?.isNewConversation = false
-                    
-                    let newConversationId = "converation_\(message.messageId)"
+//                    let conversationId = "conversation_\(firstMessage.messageId)"
+                    let newConversationId = "conversation_\(message.messageId)"
                     self?.conversationId = newConversationId
                     self?.listenForMessages(id: newConversationId, shouldScrollToBottom: true)
                     self?.messageInputBar.inputTextView.text = nil
@@ -467,7 +467,7 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
                 }
                 let safeEmail = DatabaseManager.safeEmail(email: email)
                 
-                let path = "image/\(safeEmail)_profile_picture.png"
+                let path = "images/\(safeEmail)_profile_picture.png"
                 
                 // Fetch url
                 StorageManager.shared.downloadImageURLForProfile(for: path, completion: { [weak self] result in
@@ -488,16 +488,10 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
             if let otherUserUrl = otherUserProfileUrl{
                 avatarView.sd_setImage(with: otherUserUrl)
             }else{
-                
                 let email = otherUserEmail
                 let safeEmail = DatabaseManager.safeEmail(email: email)
-                
-                let path = "image/\(safeEmail)_profile_picture.png"
-                
-                
-                
+                let path = "images/\(safeEmail)_profile_picture.png"
                 // Fetch url
-                
                 StorageManager.shared.downloadImageURLForProfile(for: path, completion: { [weak self] result in
                     switch result{
                     case .success(let url):
