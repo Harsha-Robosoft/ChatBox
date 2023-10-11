@@ -155,6 +155,7 @@ extension LoginViewController: LoginButtonDelegate{
     
     func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
         
+        spinner.show(in: view)
         // here getting token from FB
         guard let token = result?.token?.tokenString else {
             print("user failerd to login with face book")
@@ -245,6 +246,7 @@ extension LoginViewController: LoginButtonDelegate{
                 
                 print("Successfully logged in using Facebook")
                 NotificationCenter.default.post(name: .didLoginNotification, object: nil)
+                strongSelf.dismissSpinner()
                 strongSelf.navigationController?.dismiss(animated: true)
             })
         })
@@ -255,7 +257,7 @@ extension LoginViewController: LoginButtonDelegate{
 
 extension LoginViewController{
     @objc func googleSignIn(){
-                
+        spinner.show(in: view)
         GIDSignIn.sharedInstance.signIn(withPresenting: self, completion: { result, error in
             guard error == nil,
                   let user = result?.user,
@@ -321,6 +323,7 @@ extension LoginViewController{
                 print("successfully signed in with google and data stored in firebase...")
                 UserDefaults.standard.set(email, forKey: "email")
                 UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                self?.dismissSpinner()
                 self?.navigationController?.dismiss(animated: true)
             }
         })

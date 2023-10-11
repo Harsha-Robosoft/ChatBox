@@ -161,6 +161,7 @@ extension NewConversationViewController: UISearchBarDelegate{
                   let name = $0["name"] else{
                 return nil
             }
+            print("na: \(name) em: \(email)")
             return SearchResult(name: name, email: email)
         })
         

@@ -21,14 +21,14 @@
 			</array>
 		</dict>
 	</array>
-	<key>GIDClientID</key>
-	<string>512643875654-4bjvh6jhpl310l2figjc076o0dk5gq61.apps.googleusercontent.com</string>
 	<key>FacebookAppID</key>
 	<string>327578903092971</string>
 	<key>FacebookClientToken</key>
 	<string>cd51a03d49498ad3cfd2e26825fc3af8</string>
 	<key>FacebookDisplayName</key>
 	<string>ChatBox</string>
+	<key>GIDClientID</key>
+	<string>512643875654-4bjvh6jhpl310l2figjc076o0dk5gq61.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
