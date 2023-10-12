@@ -25,12 +25,32 @@
 		779863F12AD400C2005E610D /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779863F02AD400C2005E610D /* ConversationModel.swift */; };
 		779863F32AD40161005E610D /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779863F22AD40161005E610D /* ProfileModel.swift */; };
 		779863F52AD4019B005E610D /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779863F42AD4019B005E610D /* ChatModel.swift */; };
+		7798646D2AD7AAFF005E610D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 779864522AD6B441005E610D /* WidgetKit.framework */; };
+		7798646E2AD7AAFF005E610D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 779864542AD6B441005E610D /* SwiftUI.framework */; };
+		779864712AD7AAFF005E610D /* ChatWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864702AD7AAFF005E610D /* ChatWidgetBundle.swift */; };
+		779864732AD7AAFF005E610D /* ChatWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864722AD7AAFF005E610D /* ChatWidgetLiveActivity.swift */; };
+		779864752AD7AAFF005E610D /* ChatWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864742AD7AAFF005E610D /* ChatWidget.swift */; };
+		779864772AD7AB01005E610D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 779864762AD7AB01005E610D /* Assets.xcassets */; };
+		779864812AD7ABF9005E610D /* TimeLineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864802AD7ABF9005E610D /* TimeLineProvider.swift */; };
+		779864832AD7AC3C005E610D /* SimpleEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864822AD7AC3C005E610D /* SimpleEntryData.swift */; };
+		779864842AD7AE85005E610D /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779863F02AD400C2005E610D /* ConversationModel.swift */; };
+		779864972AD7C728005E610D /* ChatBox.app in Resources */ = {isa = PBXBuildFile; fileRef = 7725F3482AC190B400FCE747 /* ChatBox.app */; };
 		779FDB032AC543F600D0EB4A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779FDB022AC543F600D0EB4A /* ChatViewController.swift */; };
 		779FDB052AC589A900D0EB4A /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779FDB042AC589A900D0EB4A /* StorageManager.swift */; };
 		77CA7A542AC42ED900A4B36C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CA7A532AC42ED900A4B36C /* GoogleService-Info.plist */; };
 		77CA7A562AC450C800A4B36C /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CA7A552AC450C800A4B36C /* TabbarController.swift */; };
 		BFF5FDCBD545BEBF9A0586D2 /* Pods_ChatBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3344371BFB97D6AD20BBD5 /* Pods_ChatBox.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		779864792AD7AB01005E610D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7725F3402AC190B400FCE747 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7798646B2AD7AAFF005E610D;
+			remoteInfo = ChatWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		779864662AD6B443005E610D /* Embed Foundation Extensions */ = {
@@ -68,6 +88,14 @@
 		779863F42AD4019B005E610D /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		779864522AD6B441005E610D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		779864542AD6B441005E610D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7798646C2AD7AAFF005E610D /* ChatWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ChatWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		779864702AD7AAFF005E610D /* ChatWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWidgetBundle.swift; sourceTree = "<group>"; };
+		779864722AD7AAFF005E610D /* ChatWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		779864742AD7AAFF005E610D /* ChatWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWidget.swift; sourceTree = "<group>"; };
+		779864762AD7AB01005E610D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		779864782AD7AB01005E610D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		779864802AD7ABF9005E610D /* TimeLineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineProvider.swift; sourceTree = "<group>"; };
+		779864822AD7AC3C005E610D /* SimpleEntryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleEntryData.swift; sourceTree = "<group>"; };
 		779FDB022AC543F600D0EB4A /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		779FDB042AC589A900D0EB4A /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		77CA7A522AC3FB8200A4B36C /* ChatBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatBox.entitlements; sourceTree = "<group>"; };
@@ -87,6 +115,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		779864692AD7AAFF005E610D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7798646E2AD7AAFF005E610D /* SwiftUI.framework in Frameworks */,
+				7798646D2AD7AAFF005E610D /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -103,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				7725F34A2AC190B400FCE747 /* ChatBox */,
+				7798646F2AD7AAFF005E610D /* ChatWidget */,
 				7725F3492AC190B400FCE747 /* Products */,
 				6A153D8DDB48BF4EB1E5F4F6 /* Pods */,
 				EB86904571A14B893E931DF7 /* Frameworks */,
@@ -113,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				7725F3482AC190B400FCE747 /* ChatBox.app */,
+				7798646C2AD7AAFF005E610D /* ChatWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,6 +235,28 @@
 			path = "Login Rigistration";
 			sourceTree = "<group>";
 		};
+		7798646F2AD7AAFF005E610D /* ChatWidget */ = {
+			isa = PBXGroup;
+			children = (
+				7798647F2AD7ABC2005E610D /* Some Files */,
+				779864742AD7AAFF005E610D /* ChatWidget.swift */,
+				779864802AD7ABF9005E610D /* TimeLineProvider.swift */,
+				779864822AD7AC3C005E610D /* SimpleEntryData.swift */,
+				779864762AD7AB01005E610D /* Assets.xcassets */,
+				779864782AD7AB01005E610D /* Info.plist */,
+			);
+			path = ChatWidget;
+			sourceTree = "<group>";
+		};
+		7798647F2AD7ABC2005E610D /* Some Files */ = {
+			isa = PBXGroup;
+			children = (
+				779864702AD7AAFF005E610D /* ChatWidgetBundle.swift */,
+				779864722AD7AAFF005E610D /* ChatWidgetLiveActivity.swift */,
+			);
+			path = "Some Files";
+			sourceTree = "<group>";
+		};
 		EB86904571A14B893E931DF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,11 +284,29 @@
 			buildRules = (
 			);
 			dependencies = (
+				7798647A2AD7AB01005E610D /* PBXTargetDependency */,
 			);
 			name = ChatBox;
 			productName = ChatBox;
 			productReference = 7725F3482AC190B400FCE747 /* ChatBox.app */;
 			productType = "com.apple.product-type.application";
+		};
+		7798646B2AD7AAFF005E610D /* ChatWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7798647C2AD7AB02005E610D /* Build configuration list for PBXNativeTarget "ChatWidgetExtension" */;
+			buildPhases = (
+				779864682AD7AAFF005E610D /* Sources */,
+				779864692AD7AAFF005E610D /* Frameworks */,
+				7798646A2AD7AAFF005E610D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChatWidgetExtension;
+			productName = ChatWidgetExtension;
+			productReference = 7798646C2AD7AAFF005E610D /* ChatWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -240,6 +319,9 @@
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					7725F3472AC190B400FCE747 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					7798646B2AD7AAFF005E610D = {
 						CreatedOnToolsVersion = 14.2;
 					};
 				};
@@ -258,6 +340,7 @@
 			projectRoot = "";
 			targets = (
 				7725F3472AC190B400FCE747 /* ChatBox */,
+				7798646B2AD7AAFF005E610D /* ChatWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -271,6 +354,15 @@
 				77CA7A542AC42ED900A4B36C /* GoogleService-Info.plist in Resources */,
 				7725F3552AC190B600FCE747 /* Assets.xcassets in Resources */,
 				7725F3532AC190B400FCE747 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7798646A2AD7AAFF005E610D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				779864972AD7C728005E610D /* ChatBox.app in Resources */,
+				779864772AD7AB01005E610D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +436,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		779864682AD7AAFF005E610D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				779864732AD7AAFF005E610D /* ChatWidgetLiveActivity.swift in Sources */,
+				779864712AD7AAFF005E610D /* ChatWidgetBundle.swift in Sources */,
+				779864752AD7AAFF005E610D /* ChatWidget.swift in Sources */,
+				779864812AD7ABF9005E610D /* TimeLineProvider.swift in Sources */,
+				779864842AD7AE85005E610D /* ConversationModel.swift in Sources */,
+				779864832AD7AC3C005E610D /* SimpleEntryData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7798647A2AD7AB01005E610D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7798646B2AD7AAFF005E610D /* ChatWidgetExtension */;
+			targetProxy = 779864792AD7AB01005E610D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7725F3512AC190B400FCE747 /* Main.storyboard */ = {
@@ -556,6 +669,64 @@
 			};
 			name = Release;
 		};
+		7798647D2AD7AB02005E610D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChatWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ChatWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mundaragi.ChatBox.ChatWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7798647E2AD7AB02005E610D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChatWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ChatWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mundaragi.ChatBox.ChatWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -573,6 +744,15 @@
 			buildConfigurations = (
 				7725F35D2AC190B600FCE747 /* Debug */,
 				7725F35E2AC190B600FCE747 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7798647C2AD7AB02005E610D /* Build configuration list for PBXNativeTarget "ChatWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7798647D2AD7AB02005E610D /* Debug */,
+				7798647E2AD7AB02005E610D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
